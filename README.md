@@ -163,7 +163,64 @@ Add to crontab on the production host (every host has a different cron mechanism
 
 ---
 
-## Production deployment — Render (recommended)
+## Production deployment — Railway
+
+The repo ships with a [`railway.json`](./railway.json) so Railway runs the production bootstrap script (which applies migrations and seeds the empty DB) instead of the default `npm start`.
+
+**Plan note:** Railway's [Hobby plan is $5/month](https://railway.com/pricing) and includes 5 GB of volume storage — more than enough for SQLite + user uploads.
+
+### One-time setup
+
+1. **Push to GitHub** (already done if you're reading this in the deployed repo).
+
+2. **Sign in to [railway.com](https://railway.com)** → **New Project** → **Deploy from GitHub repo** → pick `adityakumar-woro/igre`. Railway detects Next.js via Nixpacks and starts the first build immediately.
+
+3. **Add a volume** for the SQLite database and uploads. In the project, click your service → **Settings** → **Volumes** → **Add Volume**:
+
+   | Field | Value |
+   |---|---|
+   | Mount path | `/var/data` |
+   | Size | 1 GB (plenty) |
+
+4. **Set environment variables** (Service → **Variables** → **Raw Editor**, paste this):
+
+   ```env
+   DATABASE_URL=file:/var/data/igre.db
+   UPLOAD_DIR=/var/data/uploads
+   NEXTAUTH_SECRET=<run `openssl rand -base64 32` and paste output>
+   NEXTAUTH_URL=https://<your-railway-domain>.up.railway.app
+   AUTH_TRUST_HOST=true
+   NEXT_PUBLIC_WHATSAPP_NUMBER=971581005220
+   MAX_UPLOAD_SIZE_MB=5
+   RATE_LIMIT_REQUESTS=10
+   RATE_LIMIT_WINDOW_MS=60000
+   SEED_DEFAULT_PASSWORD=<pick a password — first-login pw for the 4 staff>
+   EMAIL_FROM=IGRE <noreply@igre.ae>
+   ```
+
+   For `NEXTAUTH_URL`, Railway gives you a domain immediately — get it from **Settings → Networking → Generate Domain**, then paste it back into this variable.
+
+5. **Redeploy.** Trigger a redeploy from the Railway UI (or just push another commit). The deploy log will show:
+   ```
+   IGRE — production bootstrap starting
+   > npx prisma migrate deploy
+   DB empty — running seed (one-time)
+   Starting Next.js server
+   ```
+
+6. **Test.** Visit your Railway URL and sign in as `igre.kaiser@gmail.com` / `<SEED_DEFAULT_PASSWORD>`. You'll be redirected to `/change-password` (force-change flag). Set a real password.
+
+### Subsequent deploys
+
+`git push` to `main`. Railway rebuilds, the bootstrap script applies any new migrations, and **skips re-seeding** because the DB already has data.
+
+### Custom domain on Railway
+
+Railway → service → **Settings** → **Networking** → **Custom Domain**. Add a CNAME record per the instructions. Then update `NEXTAUTH_URL` to the new domain and redeploy.
+
+---
+
+## Production deployment — Render (alternative)
 
 The repo ships with a [`render.yaml`](./render.yaml) blueprint. One click after you connect the repo provisions: the web service, a 1 GB persistent disk mounted at `/var/data` (holds the SQLite DB + user uploads), and all the env vars except a few secrets you set yourself.
 
