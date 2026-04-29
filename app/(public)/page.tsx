@@ -13,6 +13,9 @@ import { TeamGrid } from '@/components/public/TeamGrid';
 import { QuietCTA } from '@/components/public/QuietCTA';
 import { safeJsonArray } from '@/lib/utils';
 
+// Hits SQLite at render time — must render dynamically (DB only exists at runtime).
+export const dynamic = 'force-dynamic';
+
 function homeJsonLd() {
   return {
     '@context': 'https://schema.org',

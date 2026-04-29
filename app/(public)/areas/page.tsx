@@ -7,6 +7,9 @@ export const metadata: Metadata = {
   description: 'The six places we know intimately — Saadiyat, Reem, Yas, Hudayriyat, Corniche, Yas Bay.',
 };
 
+// Hits SQLite at render time — DB only exists at runtime.
+export const dynamic = 'force-dynamic';
+
 export default async function AreasPage() {
   const areas = await db.area.findMany({
     orderBy: { sortOrder: 'asc' },

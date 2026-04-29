@@ -8,6 +8,9 @@ export const metadata: Metadata = {
   description: 'A small Abu Dhabi brokerage. Local since day one.',
 };
 
+// Hits SQLite at render time — DB only exists at runtime.
+export const dynamic = 'force-dynamic';
+
 export default async function AboutPage() {
   const team = await db.user.findMany({
     where: { role: { in: ['ADMIN', 'MANAGER'] } },

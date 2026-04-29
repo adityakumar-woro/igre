@@ -7,6 +7,9 @@ export const metadata: Metadata = {
   description: 'Four people. Direct phone, direct email.',
 };
 
+// Hits SQLite at render time — DB only exists at runtime.
+export const dynamic = 'force-dynamic';
+
 export default async function TeamPage() {
   const team = await db.user.findMany({
     where: { role: { in: ['ADMIN', 'MANAGER'] } },
