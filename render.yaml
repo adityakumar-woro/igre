@@ -1,0 +1,90 @@
+# Render Blueprint for IGRE.
+# Spec: https://render.com/docs/blueprint-spec
+#
+# Deploys one web service (Node, Starter plan) backed by a 1 GB persistent
+# disk mounted at /var/data, which holds:
+#   - the SQLite database (igre.db)
+#   - user-uploaded images (uploads/)
+#
+# After connecting the repo to Render, this blueprint provisions everything
+# in one click. You only need to set NEXTAUTH_SECRET (marked sync: false).
+
+services:
+  - type: web
+    name: igre
+    runtime: node
+    plan: starter           # Starter is the cheapest plan that supports persistent disks.
+    region: frankfurt       # Closest to Abu Dhabi out of Render's regions; switch to oregon/ohio if you prefer.
+    branch: main
+    autoDeploy: true
+    healthCheckPath: /api/auth/session
+
+    # Build runs once per deploy. We don't run migrations or seed here —
+    # those happen at container start so they hit the *real* persistent disk,
+    # not the build sandbox.
+    buildCommand: npm ci && npm run build
+
+    # Start runs every time the container boots:
+    #   1. prisma migrate deploy   (idempotent, applies new migrations)
+    #   2. seed                    (only if the DB is empty — see scripts/start.js)
+    #   3. next start
+    startCommand: node scripts/start.js
+
+    disk:
+      name: igre-data
+      mountPath: /var/data
+      sizeGB: 1
+
+    envVars:
+      # Database lives on the persistent disk so it survives redeploys.
+      - key: DATABASE_URL
+        value: file:/var/data/igre.db
+
+      # Image uploads also land on the persistent disk and are served via
+      # /api/uploads/[name] (see app/api/uploads/[name]/route.ts).
+      - key: UPLOAD_DIR
+        value: /var/data/uploads
+
+      # Auth.js — set this *once* in the Render dashboard. `sync: false`
+      # means the blueprint won't overwrite it on subsequent deploys.
+      - key: NEXTAUTH_SECRET
+        sync: false
+
+      # NEXTAUTH_URL is auto-derived by Render from the service's URL via
+      # RENDER_EXTERNAL_URL. Set NEXTAUTH_URL manually only if you bind a
+      # custom domain.
+      - key: NEXTAUTH_URL
+        sync: false
+
+      - key: AUTH_TRUST_HOST
+        value: "true"
+
+      # Email — set in dashboard if you want to enable Resend; otherwise
+      # the app fails silently on email send.
+      - key: RESEND_API_KEY
+        sync: false
+      - key: EMAIL_FROM
+        value: IGRE <noreply@igre.ae>
+
+      # WhatsApp deep-link
+      - key: NEXT_PUBLIC_WHATSAPP_NUMBER
+        value: "971581005220"
+
+      # Upload limits
+      - key: MAX_UPLOAD_SIZE_MB
+        value: "5"
+
+      # In-memory rate limiter (single instance is fine for now; swap to
+      # Upstash Redis if you scale to multi-instance).
+      - key: RATE_LIMIT_REQUESTS
+        value: "10"
+      - key: RATE_LIMIT_WINDOW_MS
+        value: "60000"
+
+      # Seeded staff password — used only on first-run seed.
+      - key: SEED_DEFAULT_PASSWORD
+        sync: false
+
+      # Use Render's bundled Node version. Pin in package.json's `engines`.
+      - key: NODE_VERSION
+        value: "20"

@@ -1,0 +1,263 @@
+// IGRE — Prisma schema
+// SQLite via better-sqlite3. SQLite has no native enums or arrays, so:
+//   - enums are stored as String + validated by Zod
+//   - JSON arrays are stored as String (JSON.stringify) and parsed in app code
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// ----------------------------------------------------------------------------
+// Roles & enum-like string unions (validated in lib/validations/*)
+// ----------------------------------------------------------------------------
+//   Role          : "ADMIN" | "MANAGER" | "USER"
+//   ListingType   : "SALE" | "RENT" | "LEASE"
+//   PropertyType  : "APARTMENT" | "VILLA" | "TOWNHOUSE" | "PENTHOUSE" | "STUDIO" | "OFFPLAN"
+//   ListingStatus : "DRAFT" | "PENDING" | "PUBLISHED" | "RESERVED" | "SOLD_RENTED" | "ARCHIVED"
+//   LeadStatus    : "NEW" | "CONTACTED" | "VIEWING_SCHEDULED" | "NEGOTIATING" | "WON" | "LOST"
+//   EnquiryType   : "GENERAL" | "PROPERTY_SPECIFIC" | "COLLABORATION" | "VALUATION"
+
+model User {
+  id                  String    @id @default(cuid())
+  email               String    @unique
+  phone               String?
+  name                String
+  passwordHash        String
+  role                String    @default("USER")
+  avatarUrl           String?
+  bio                 String?
+  forcePasswordChange Boolean   @default(false)
+  emailVerified       DateTime?
+  createdAt           DateTime  @default(now())
+  updatedAt           DateTime  @updatedAt
+  lastLoginAt         DateTime?
+
+  listings        Listing[]        @relation("AssignedAgent")
+  leads           Lead[]           @relation("AssignedAgent")
+  favourites      Favourite[]
+  enquiries       Enquiry[]        @relation("EnquiryUser")
+  viewingRequests ViewingRequest[]
+  auditLogs       AuditLog[]
+  notifications   Notification[]
+
+  @@index([role])
+}
+
+model Area {
+  id                     String  @id @default(cuid())
+  slug                   String  @unique
+  name                   String
+  tagline                String
+  description            String
+  heroImageUrl           String
+  images                 String  @default("[]") // JSON array
+  startingPrice2BhkSale  Int?
+  startingPrice3BhkSale  Int?
+  startingPriceVillaSale Int?
+  startingPrice2BhkRent  Int?
+  startingPrice3BhkRent  Int?
+  startingPriceVillaRent Int?
+  freehold               Boolean @default(true)
+  distanceToAirportKm    Float?
+  isFeatured             Boolean @default(false)
+  sortOrder              Int     @default(0)
+  createdAt              DateTime @default(now())
+  updatedAt              DateTime @updatedAt
+
+  listings Listing[]
+}
+
+model Listing {
+  id          String @id @default(cuid())
+  reference   String @unique
+  slug        String @unique
+  title       String
+  description String
+
+  listingType  String // SALE | RENT | LEASE
+  propertyType String // APARTMENT | VILLA | TOWNHOUSE | PENTHOUSE | STUDIO | OFFPLAN
+  status       String @default("DRAFT")
+
+  bedrooms      Int
+  bathrooms     Int
+  sqft          Int
+  parkingSpaces Int     @default(1)
+  furnished     Boolean @default(false)
+  yearBuilt     Int?
+
+  price          Int
+  priceUnit      String  @default("AED")
+  pricePerSqft   Int?
+  serviceCharges Int?
+  paymentPlan    String?
+
+  areaId       String
+  area         Area    @relation(fields: [areaId], references: [id])
+  buildingName String?
+  floorNumber  Int?
+  unitNumber   String?
+  fullAddress  String
+  latitude     Float?
+  longitude    Float?
+
+  features String @default("[]") // JSON array
+
+  coverImageUrl  String
+  images         String  @default("[]") // JSON array
+  floorPlanUrl   String?
+  videoUrl       String?
+  virtualTourUrl String?
+
+  agentId String
+  agent   User   @relation("AssignedAgent", fields: [agentId], references: [id])
+
+  metaTitle       String?
+  metaDescription String?
+
+  viewCount      Int @default(0)
+  favouriteCount Int @default(0)
+  enquiryCount   Int @default(0)
+
+  publishedAt DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  favourites      Favourite[]
+  enquiries       Enquiry[]
+  viewingRequests ViewingRequest[]
+  leads           Lead[]
+
+  @@index([status])
+  @@index([listingType])
+  @@index([propertyType])
+  @@index([areaId])
+  @@index([agentId])
+}
+
+model Favourite {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  listingId String
+  listing   Listing  @relation(fields: [listingId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@unique([userId, listingId])
+}
+
+model Enquiry {
+  id            String   @id @default(cuid())
+  type          String   @default("GENERAL")
+  name          String
+  email         String
+  phone         String
+  message       String
+  budget        Int?
+  preferredArea String?
+  listingId     String?
+  listing       Listing? @relation(fields: [listingId], references: [id])
+  userId        String?
+  user          User?    @relation("EnquiryUser", fields: [userId], references: [id])
+  source        String   @default("website")
+  status        String   @default("NEW")
+  createdAt     DateTime @default(now())
+
+  lead Lead?
+
+  @@index([status])
+  @@index([type])
+}
+
+model Lead {
+  id             String    @id @default(cuid())
+  enquiryId      String?   @unique
+  enquiry        Enquiry?  @relation(fields: [enquiryId], references: [id])
+  name           String
+  email          String
+  phone          String
+  budget         Int?
+  notes          String?
+  status         String    @default("NEW")
+  agentId        String
+  agent          User      @relation("AssignedAgent", fields: [agentId], references: [id])
+  listingId      String?
+  listing        Listing?  @relation(fields: [listingId], references: [id])
+  nextFollowUpAt DateTime?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  activities LeadActivity[]
+
+  @@index([status])
+  @@index([agentId])
+}
+
+model LeadActivity {
+  id          String   @id @default(cuid())
+  leadId      String
+  lead        Lead     @relation(fields: [leadId], references: [id], onDelete: Cascade)
+  type        String // call | email | whatsapp | meeting | viewing | note
+  content     String
+  createdById String
+  createdAt   DateTime @default(now())
+}
+
+model ViewingRequest {
+  id            String   @id @default(cuid())
+  listingId     String
+  listing       Listing  @relation(fields: [listingId], references: [id], onDelete: Cascade)
+  userId        String?
+  user          User?    @relation(fields: [userId], references: [id])
+  name          String
+  email         String
+  phone         String
+  preferredDate DateTime
+  preferredTime String
+  notes         String?
+  status        String   @default("PENDING") // PENDING | CONFIRMED | COMPLETED | CANCELLED
+  createdAt     DateTime @default(now())
+
+  @@index([status])
+  @@index([listingId])
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  type      String
+  title     String
+  body      String
+  link      String?
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  @@index([userId, read])
+}
+
+model AuditLog {
+  id         String   @id @default(cuid())
+  userId     String?
+  user       User?    @relation(fields: [userId], references: [id])
+  action     String
+  entityType String
+  entityId   String?
+  metadata   String? // JSON
+  ipAddress  String?
+  userAgent  String?
+  createdAt  DateTime @default(now())
+
+  @@index([entityType, entityId])
+  @@index([createdAt])
+}
+
+model SiteSetting {
+  key       String   @id
+  value     String
+  updatedAt DateTime @updatedAt
+}

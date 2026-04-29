@@ -1,0 +1,170 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-ink: #0E1116;
+  --color-bone: #F4F1EA;
+  --color-sand: #E8DFCE;
+  --color-ivory: #F0E5D6;
+  --color-gold: #B8935A;
+  --color-amber: #D4A574;
+  --color-sunset: #D4866A;
+  --color-rose: #E0B5A8;
+  --color-gulf: #1E3A52;
+  --color-tide: #2F5D7C;
+  --color-sage: #6B8E7F;
+  --color-mute: #6B6B6B;
+  --color-line: rgba(14, 17, 22, 0.08);
+  --color-success: #2F7D5C;
+  --color-danger: #B84A3E;
+
+  --ease-editorial: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --font-display: var(--font-fraunces), Georgia, serif;
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+}
+
+:root {
+  --ink: #0E1116;
+  --bone: #F4F1EA;
+  --sand: #E8DFCE;
+  --ivory: #F0E5D6;
+  --gold: #B8935A;
+  --amber: #D4A574;
+  --sunset: #D4866A;
+  --rose: #E0B5A8;
+  --gulf: #1E3A52;
+  --tide: #2F5D7C;
+  --sage: #6B8E7F;
+  --mute: #6B6B6B;
+  --line: rgba(14, 17, 22, 0.08);
+  --success: #2F7D5C;
+  --danger: #B84A3E;
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html, body {
+  background: var(--bone);
+  color: var(--ink);
+  font-family: var(--font-inter), system-ui, sans-serif;
+  font-size: 17px;
+  line-height: 1.55;
+}
+
+::selection {
+  background: var(--ink);
+  color: var(--bone);
+}
+
+/* Tabular numerals on prices */
+.tnum {
+  font-feature-settings: "tnum" 1, "lnum" 1;
+}
+
+/* Editorial display type */
+.font-display {
+  font-family: var(--font-fraunces), Georgia, serif;
+  font-weight: 400;
+  letter-spacing: -0.025em;
+  line-height: 0.95;
+  font-variation-settings: "opsz" 144;
+}
+
+/* Focus ring — gold, 2px, only when keyboard-navigating */
+:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+button:focus:not(:focus-visible),
+a:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Hide scrollbar on Lenis-scrolled body (smooth feel) */
+html.lenis {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+/* Custom cursor */
+.has-custom-cursor {
+  cursor: none;
+}
+@media (hover: none) {
+  .has-custom-cursor {
+    cursor: auto;
+  }
+  .igre-cursor { display: none; }
+}
+
+/* Hairline divider */
+.rule {
+  height: 1px;
+  background: var(--line);
+}
+
+/* Editorial container — wider than usual, generous padding */
+.container-editorial {
+  width: 100%;
+  max-width: 1440px;
+  margin-inline: auto;
+  padding-inline: clamp(1.5rem, 5vw, 6rem);
+}
+
+/* Word-by-word reveal helpers */
+.reveal-word {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: baseline;
+}
+.reveal-word > span {
+  display: inline-block;
+  transform: translateY(110%);
+}
+
+/* Image reveal — set on parent wrapper */
+.image-reveal {
+  position: relative;
+  overflow: hidden;
+}
+.image-reveal img {
+  transform: scale(1.1);
+  opacity: 0;
+  transition: transform 1200ms var(--ease-editorial), opacity 1000ms var(--ease-editorial);
+}
+.image-reveal.is-in img {
+  transform: scale(1);
+  opacity: 1;
+}
+
+/* Reduced motion — disable everything dramatic */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .image-reveal img { transform: none; opacity: 1; }
+  .reveal-word > span { transform: none !important; }
+  .igre-cursor { display: none !important; }
+  .has-custom-cursor { cursor: auto !important; }
+}
+
+/* Hide scrollbars cleanly on horizontal scrollers */
+.scroll-no-bar::-webkit-scrollbar { display: none; }
+.scroll-no-bar { scrollbar-width: none; }
