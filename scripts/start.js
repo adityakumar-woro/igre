@@ -105,6 +105,15 @@ async function maybeResetStaffPassword() {
   // 2b. Optional staff-password reset (set RESET_STAFF_PASSWORD env var)
   await maybeResetStaffPassword();
 
+  // 2c. Optional content migration: add mainland areas + new rentals.
+  // Set RUN_ADD_MAINLAND=1 on the platform, redeploy, then remove the var.
+  // Idempotent — safe to run repeatedly, won't duplicate listings.
+  if (process.env.RUN_ADD_MAINLAND === '1') {
+    console.log('=== RUN_ADD_MAINLAND=1 — running mainland content migration ===');
+    run('npx', ['tsx', 'scripts/add-mainland.ts']);
+    console.log('=== Mainland migration complete; REMOVE the RUN_ADD_MAINLAND env var now ===');
+  }
+
   // 3. Hand off to Next
   console.log('Starting Next.js server');
   const next = spawn('npx', ['next', 'start', '-p', process.env.PORT || '3000'], {

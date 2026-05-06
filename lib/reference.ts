@@ -1,12 +1,19 @@
 import { db } from './db';
 
 const AREA_CODES: Record<string, string> = {
+  // Islands
   'al-saadiyat-island': 'SD',
   'al-reem-island': 'RM',
   'corniche-road': 'CR',
   'yas-island': 'YS',
   'hudayriyat-island': 'HD',
   'ferrari-yas-bay': 'FR',
+  // Mainland residential
+  'khalifa-city': 'KC',
+  'al-raha-beach': 'RB',
+  'mohammed-bin-zayed-city': 'MZ',
+  'al-bateen': 'BT',
+  'al-khalidiyah': 'KH',
 };
 
 /**
