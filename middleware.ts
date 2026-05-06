@@ -31,6 +31,13 @@ export async function middleware(req: NextRequest) {
     return NextResponse.next();
   }
 
+  // DEMO MODE — auth bypassed. Don't ship to production with this on.
+  // The wrapped auth() in lib/auth.ts injects a fake admin session so server
+  // components rendering session.user.* still work.
+  if (process.env.DEMO_MODE === '1') {
+    return NextResponse.next();
+  }
+
   const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
 
   if (!token) {

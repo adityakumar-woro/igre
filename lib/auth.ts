@@ -34,7 +34,7 @@ const credentialsSchema = z.object({
   password: z.string().min(1),
 });
 
-export const { handlers, auth, signIn, signOut } = NextAuth({
+const nextAuth = NextAuth({
   trustHost: true,
   session: { strategy: 'jwt', maxAge: 60 * 60 * 24 * 30 }, // 30 days
   pages: {
@@ -98,3 +98,43 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     },
   },
 });
+
+export const { handlers, signIn, signOut } = nextAuth;
+const realAuth = nextAuth.auth;
+
+/**
+ * `auth()` — usually delegates to Auth.js's session lookup.
+ *
+ * When `DEMO_MODE=1` is set, this short-circuits and returns a fake-but-real
+ * session backed by the admin user from the DB. That bypasses the login
+ * screen entirely so /admin, /dashboard, and /my/* all open without
+ * authenticating. **NEVER ship to production with DEMO_MODE on.**
+ */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export async function auth(...args: any[]): Promise<any> {
+  if (process.env.DEMO_MODE === '1') {
+    try {
+      const adminUser = await db.user.findFirst({
+        where: { role: 'ADMIN' },
+        orderBy: { createdAt: 'asc' },
+      });
+      if (adminUser) {
+        return {
+          user: {
+            id: adminUser.id,
+            name: adminUser.name,
+            email: adminUser.email,
+            image: adminUser.avatarUrl ?? null,
+            role: adminUser.role as Role,
+            forcePasswordChange: false,
+          },
+          expires: new Date(Date.now() + 86400000).toISOString(),
+        };
+      }
+    } catch {
+      // fall through to real auth on any DB error
+    }
+  }
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return (realAuth as any)(...args);
+}
