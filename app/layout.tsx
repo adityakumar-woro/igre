@@ -4,7 +4,6 @@ import { Fraunces, Inter, IBM_Plex_Sans_Arabic } from 'next/font/google';
 import { SmoothScroll } from '@/components/motion/SmoothScroll';
 import { CustomCursor } from '@/components/motion/CustomCursor';
 import { SessionProvider } from '@/components/shared/SessionProvider';
-import { DemoBanner } from '@/components/shared/DemoBanner';
 
 const fraunces = Fraunces({
   subsets: ['latin'],
@@ -67,7 +66,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className={`${fraunces.variable} ${inter.variable} ${plexArabic.variable}`}>
       <body className="bg-bone text-ink has-custom-cursor">
         <SessionProvider>
-          <DemoBanner />
           <SmoothScroll>
             {children}
           </SmoothScroll>

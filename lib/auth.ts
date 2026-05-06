@@ -49,6 +49,28 @@ const nextAuth = NextAuth({
         password: { label: 'Password', type: 'password' },
       },
       async authorize(raw) {
+        // DEMO_MODE — accept any input. Whatever's typed in the form
+        // (or even garbage), the user is logged in as the admin. The login
+        // form, button, and role-based redirect all keep working — only
+        // the password check is skipped.
+        if (process.env.DEMO_MODE === '1') {
+          const adminUser = await db.user.findFirst({
+            where: { role: 'ADMIN' },
+            orderBy: { createdAt: 'asc' },
+          });
+          if (adminUser) {
+            return {
+              id: adminUser.id,
+              email: adminUser.email,
+              name: adminUser.name,
+              image: adminUser.avatarUrl ?? undefined,
+              role: adminUser.role as Role,
+              forcePasswordChange: false,
+            };
+          }
+          // No admin in DB — fall through to normal flow.
+        }
+
         const parsed = credentialsSchema.safeParse(raw);
         if (!parsed.success) return null;
 
