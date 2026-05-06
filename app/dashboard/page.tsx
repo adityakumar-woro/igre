@@ -81,7 +81,7 @@ export default async function DashboardPage() {
               </Link>
             </div>
           ) : (
-            <div className="overflow-hidden rounded-sm border border-line bg-bone">
+            <div className="overflow-x-auto rounded-sm border border-line bg-bone">
               <table className="w-full text-sm">
                 <thead className="bg-sand/30 text-left text-xs uppercase tracking-[0.18em] text-mute">
                   <tr>

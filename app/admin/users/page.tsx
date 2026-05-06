@@ -82,7 +82,7 @@ export default async function AdminUsersPage({ searchParams }: PageProps) {
         </button>
       </form>
 
-      <div className="overflow-hidden border border-line bg-bone">
+      <div className="overflow-x-auto border border-line bg-bone">
         <table className="w-full text-sm">
           <thead className="bg-sand/30 text-left text-xs uppercase tracking-[0.18em] text-mute">
             <tr>

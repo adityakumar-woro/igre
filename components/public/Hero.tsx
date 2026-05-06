@@ -175,12 +175,12 @@ export function Hero() {
               <p className="mt-1 text-sm">Abu Dhabi · UAE</p>
             </motion.div>
 
-            {/* Floating gold stamp */}
+            {/* Floating gold stamp — inside the card on mobile, outside on desktop */}
             <motion.div
               initial={{ opacity: 0, scale: 0.6, rotate: -12 }}
               animate={{ opacity: 1, scale: 1, rotate: -8 }}
               transition={{ duration: 1, delay: 1.8, ease: [0.22, 1, 0.36, 1] }}
-              className="absolute -right-3 -top-3 rounded-full bg-gold px-4 py-2 text-bone shadow-lg"
+              className="absolute right-3 top-3 rounded-full bg-gold px-4 py-2 text-bone shadow-lg md:-right-3 md:-top-3"
             >
               <p className="font-mono text-[10px] uppercase tracking-[0.22em]">Est. 2010</p>
             </motion.div>
