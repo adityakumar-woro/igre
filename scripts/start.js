@@ -114,6 +114,16 @@ async function maybeResetStaffPassword() {
     console.log('=== Mainland migration complete; REMOVE the RUN_ADD_MAINLAND env var now ===');
   }
 
+  // 2d. Optional one-shot user reset — wipes the old multi-account set and
+  // creates exactly admin@igre.ae / manager@igre.ae / user@igre.ae. Listings
+  // and leads are reassigned to the new manager (no data loss).
+  // Set RESET_USERS=1, redeploy, REMOVE the var.
+  if (process.env.RESET_USERS === '1') {
+    console.log('=== RESET_USERS=1 — resetting user accounts ===');
+    run('npx', ['tsx', 'scripts/reset-users.ts']);
+    console.log('=== User reset complete; REMOVE the RESET_USERS env var now ===');
+  }
+
   // 3. Hand off to Next
   console.log('Starting Next.js server');
   const next = spawn('npx', ['next', 'start', '-p', process.env.PORT || '3000'], {

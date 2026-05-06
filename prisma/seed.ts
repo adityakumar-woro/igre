@@ -14,8 +14,9 @@ import bcrypt from 'bcryptjs';
 
 const prisma = new PrismaClient();
 
-const DEFAULT_PASSWORD = process.env.SEED_DEFAULT_PASSWORD || 'IGRE@2026';
-const DEMO_PASSWORD = 'Demo@2026';
+const ADMIN_PASSWORD   = process.env.SEED_ADMIN_PASSWORD   || 'Admin@2026';
+const MANAGER_PASSWORD = process.env.SEED_MANAGER_PASSWORD || 'Manager@2026';
+const USER_PASSWORD    = process.env.SEED_USER_PASSWORD    || 'User@2026';
 
 // Unsplash placeholders — wide architectural / Abu Dhabi / interior shots.
 // Marked everywhere with data-placeholder="true" in components.
@@ -56,75 +57,62 @@ async function main() {
   await prisma.siteSetting.deleteMany();
 
   // -------------------------------------------------------------------------
-  // Users
+  // Users — three accounts, one per role, all force-change disabled for a
+  // smooth login experience.
   // -------------------------------------------------------------------------
-  const passwordHash = await bcrypt.hash(DEFAULT_PASSWORD, 12);
-  const demoHash = await bcrypt.hash(DEMO_PASSWORD, 12);
+  const adminHash   = await bcrypt.hash(ADMIN_PASSWORD,   12);
+  const managerHash = await bcrypt.hash(MANAGER_PASSWORD, 12);
+  const userHash    = await bcrypt.hash(USER_PASSWORD,    12);
 
-  const kaiser = await prisma.user.create({
+  // The admin account — full system access, owns whatever isn't agent-specific.
+  const admin = await prisma.user.create({
     data: {
-      email: 'igre.kaiser@gmail.com',
+      email: 'admin@igre.ae',
       phone: '+971581005220',
-      name: 'MD Kaiser Mahmud',
-      passwordHash,
+      name: 'IGRE Admin',
+      passwordHash: adminHash,
       role: 'ADMIN',
       bio: 'Founder & Managing Director. Property in Abu Dhabi since day one.',
-      forcePasswordChange: true,
+      forcePasswordChange: false,
       avatarUrl: '/team/Kaiser.png',
     },
   });
 
-  const asad = await prisma.user.create({
+  // The single manager account — every listing/lead is assigned to them by
+  // default. You can add more managers later via /admin/users.
+  const manager = await prisma.user.create({
     data: {
-      email: 'igre.asad@gmail.com',
+      email: 'manager@igre.ae',
       phone: '+971502416589',
-      name: 'Mohammed Asaduzzaman',
-      passwordHash,
+      name: 'IGRE Agent',
+      passwordHash: managerHash,
       role: 'MANAGER',
-      bio: 'Co-Founder & Head of Sales. Specialises in Saadiyat and Yas Island.',
-      forcePasswordChange: true,
+      bio: 'Senior Property Consultant. Sales, leasing, and broker collaborations.',
+      forcePasswordChange: false,
       avatarUrl: '/team/Asaduzzaman.png',
     },
   });
 
-  const faisal = await prisma.user.create({
-    data: {
-      email: 'faisalvpz2777@gmail.com',
-      phone: '+971525697405',
-      name: 'Muhammad Faisal',
-      passwordHash,
-      role: 'MANAGER',
-      bio: 'Senior Property Consultant. Reem Island and Corniche specialist.',
-      forcePasswordChange: true,
-      avatarUrl: '/team/Faisal.png',
-    },
-  });
-
-  const arman = await prisma.user.create({
-    data: {
-      email: 'ashikuzzamanarman@gmail.com',
-      phone: '+971525697420',
-      name: 'Ashikuzzaman Arman',
-      passwordHash,
-      role: 'MANAGER',
-      bio: 'Senior Property Consultant. Hudayriyat and Yas Bay portfolio.',
-      forcePasswordChange: true,
-      avatarUrl: '/team/ashikuzzamanarman.png',
-    },
-  });
-
+  // The public USER account — for browsing favourites, sending enquiries.
   await prisma.user.create({
     data: {
-      email: 'demo@igre.ae',
+      email: 'user@igre.ae',
       phone: '+971500000000',
-      name: 'Demo User',
-      passwordHash: demoHash,
+      name: 'IGRE Client',
+      passwordHash: userHash,
       role: 'USER',
       forcePasswordChange: false,
     },
   });
 
-  console.log('  - 5 users created (4 staff + 1 demo)');
+  console.log('  - 3 users created (admin / manager / user)');
+
+  // Aliases used by listing assignments below — both go to the single manager
+  // for now. Keeps the rest of the seed code unchanged.
+  const kaiser = admin;
+  const asad   = manager;
+  const faisal = manager;
+  const arman  = manager;
 
   // -------------------------------------------------------------------------
   // Areas

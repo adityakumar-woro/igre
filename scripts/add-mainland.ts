@@ -161,7 +161,7 @@ const NEW_LISTINGS: ListingSpec[] = [
   {
     reference: 'IGRE-KC-0001', slug: 'khalifa-city-villa-4br-rent',
     title: 'A four-bedroom villa in Khalifa City. Annual lease, garden included.',
-    areaSlug: 'khalifa-city', agentEmail: 'igre.asad@gmail.com',
+    areaSlug: 'khalifa-city', agentEmail: 'manager@igre.ae',
     type: 'RENT', property: 'VILLA', status: 'PUBLISHED',
     bed: 4, bath: 5, sqft: 4200, price: 175000, cover: IMG.v1,
     address: 'Al Forsan Village, Khalifa City',
@@ -170,7 +170,7 @@ const NEW_LISTINGS: ListingSpec[] = [
   {
     reference: 'IGRE-KC-0002', slug: 'khalifa-city-th-3br-rent',
     title: 'A three-bedroom townhouse in Khalifa City. Family-friendly community.',
-    areaSlug: 'khalifa-city', agentEmail: 'ashikuzzamanarman@gmail.com',
+    areaSlug: 'khalifa-city', agentEmail: 'manager@igre.ae',
     type: 'RENT', property: 'TOWNHOUSE', status: 'PUBLISHED',
     bed: 3, bath: 4, sqft: 2400, price: 135000, cover: IMG.i3,
     address: 'Hills Estate, Khalifa City',
@@ -179,7 +179,7 @@ const NEW_LISTINGS: ListingSpec[] = [
   {
     reference: 'IGRE-KC-0003', slug: 'khalifa-city-villa-5br-sale',
     title: 'A five-bedroom villa on Khalifa City. Established street, mature gardens.',
-    areaSlug: 'khalifa-city', agentEmail: 'igre.asad@gmail.com',
+    areaSlug: 'khalifa-city', agentEmail: 'manager@igre.ae',
     type: 'SALE', property: 'VILLA', status: 'PUBLISHED',
     bed: 5, bath: 6, sqft: 5400, price: 4200000, cover: IMG.v2,
     address: 'Al Rabdan, Khalifa City',
@@ -190,7 +190,7 @@ const NEW_LISTINGS: ListingSpec[] = [
   {
     reference: 'IGRE-RB-0001', slug: 'al-raha-2br-marina-view-rent',
     title: 'Two-bedroom on Al Raha Beach. Marina view, walkable to the boardwalk.',
-    areaSlug: 'al-raha-beach', agentEmail: 'igre.asad@gmail.com',
+    areaSlug: 'al-raha-beach', agentEmail: 'manager@igre.ae',
     type: 'RENT', property: 'APARTMENT', status: 'PUBLISHED',
     bed: 2, bath: 3, sqft: 1380, price: 130000, cover: IMG.i2,
     address: 'Al Bandar, Al Raha Beach',
@@ -199,7 +199,7 @@ const NEW_LISTINGS: ListingSpec[] = [
   {
     reference: 'IGRE-RB-0002', slug: 'al-raha-3br-rent-coastal',
     title: 'A three-bedroom on Al Raha Beach. Annual lease, ready to move in.',
-    areaSlug: 'al-raha-beach', agentEmail: 'igre.asad@gmail.com',
+    areaSlug: 'al-raha-beach', agentEmail: 'manager@igre.ae',
     type: 'RENT', property: 'APARTMENT', status: 'PUBLISHED',
     bed: 3, bath: 4, sqft: 1850, price: 175000, cover: IMG.i4,
     address: 'Al Muneera, Al Raha Beach',
@@ -208,7 +208,7 @@ const NEW_LISTINGS: ListingSpec[] = [
   {
     reference: 'IGRE-RB-0003', slug: 'al-raha-villa-4br-sale',
     title: 'A four-bedroom villa on Al Raha. Quiet community, beach minutes away.',
-    areaSlug: 'al-raha-beach', agentEmail: 'ashikuzzamanarman@gmail.com',
+    areaSlug: 'al-raha-beach', agentEmail: 'manager@igre.ae',
     type: 'SALE', property: 'VILLA', status: 'PUBLISHED',
     bed: 4, bath: 5, sqft: 3800, price: 4500000, cover: IMG.v1,
     address: 'Al Zeina, Al Raha Beach',
@@ -219,7 +219,7 @@ const NEW_LISTINGS: ListingSpec[] = [
   {
     reference: 'IGRE-MZ-0001', slug: 'mbz-villa-4br-rent',
     title: 'A four-bedroom villa in MBZ City. Spacious, family-ready.',
-    areaSlug: 'mohammed-bin-zayed-city', agentEmail: 'faisalvpz2777@gmail.com',
+    areaSlug: 'mohammed-bin-zayed-city', agentEmail: 'manager@igre.ae',
     type: 'RENT', property: 'VILLA', status: 'PUBLISHED',
     bed: 4, bath: 5, sqft: 3600, price: 145000, cover: IMG.v2,
     address: 'Zone 4, Mohammed Bin Zayed City',
@@ -228,7 +228,7 @@ const NEW_LISTINGS: ListingSpec[] = [
   {
     reference: 'IGRE-MZ-0002', slug: 'mbz-villa-3br-rent-compact',
     title: 'A three-bedroom villa in MBZ. Compact, well-maintained, gated street.',
-    areaSlug: 'mohammed-bin-zayed-city', agentEmail: 'faisalvpz2777@gmail.com',
+    areaSlug: 'mohammed-bin-zayed-city', agentEmail: 'manager@igre.ae',
     type: 'RENT', property: 'VILLA', status: 'PUBLISHED',
     bed: 3, bath: 4, sqft: 2800, price: 115000, cover: IMG.i6,
     address: 'Zone 9, Mohammed Bin Zayed City',
@@ -237,7 +237,7 @@ const NEW_LISTINGS: ListingSpec[] = [
   {
     reference: 'IGRE-MZ-0003', slug: 'mbz-villa-5br-sale',
     title: 'A five-bedroom villa in MBZ City. Quiet street, low traffic, school-walkable.',
-    areaSlug: 'mohammed-bin-zayed-city', agentEmail: 'igre.asad@gmail.com',
+    areaSlug: 'mohammed-bin-zayed-city', agentEmail: 'manager@igre.ae',
     type: 'SALE', property: 'VILLA', status: 'PUBLISHED',
     bed: 5, bath: 6, sqft: 5200, price: 3400000, cover: IMG.v1,
     address: 'Zone 2, Mohammed Bin Zayed City',
@@ -248,7 +248,7 @@ const NEW_LISTINGS: ListingSpec[] = [
   {
     reference: 'IGRE-BT-0001', slug: 'al-bateen-2br-embassy-rent',
     title: 'Two bedrooms in Al Bateen. Embassy district, quiet leafy street.',
-    areaSlug: 'al-bateen', agentEmail: 'faisalvpz2777@gmail.com',
+    areaSlug: 'al-bateen', agentEmail: 'manager@igre.ae',
     type: 'RENT', property: 'APARTMENT', status: 'PUBLISHED',
     bed: 2, bath: 3, sqft: 1450, price: 110000, cover: IMG.i5,
     address: 'Khaleej Al Arabi Street, Al Bateen',
@@ -257,7 +257,7 @@ const NEW_LISTINGS: ListingSpec[] = [
   {
     reference: 'IGRE-BT-0002', slug: 'al-bateen-villa-4br-rent',
     title: 'A four-bedroom villa in Al Bateen. Walking distance to the marina.',
-    areaSlug: 'al-bateen', agentEmail: 'faisalvpz2777@gmail.com',
+    areaSlug: 'al-bateen', agentEmail: 'manager@igre.ae',
     type: 'RENT', property: 'VILLA', status: 'PUBLISHED',
     bed: 4, bath: 5, sqft: 4500, price: 295000, cover: IMG.v2,
     address: 'Al Bateen, near Marina',
@@ -268,7 +268,7 @@ const NEW_LISTINGS: ListingSpec[] = [
   {
     reference: 'IGRE-KH-0001', slug: 'khalidiyah-2br-rent-affordable',
     title: 'Two bedrooms in Khalidiyah. Walkable to the Corniche, easy starter unit.',
-    areaSlug: 'al-khalidiyah', agentEmail: 'igre.asad@gmail.com',
+    areaSlug: 'al-khalidiyah', agentEmail: 'manager@igre.ae',
     type: 'RENT', property: 'APARTMENT', status: 'PUBLISHED',
     bed: 2, bath: 2, sqft: 1200, price: 85000, cover: IMG.i1,
     address: 'Al Khalidiyah, central',
@@ -277,7 +277,7 @@ const NEW_LISTINGS: ListingSpec[] = [
   {
     reference: 'IGRE-KH-0002', slug: 'khalidiyah-3br-rent-family',
     title: 'A three-bedroom in Khalidiyah. Established neighbourhood, school-walkable.',
-    areaSlug: 'al-khalidiyah', agentEmail: 'ashikuzzamanarman@gmail.com',
+    areaSlug: 'al-khalidiyah', agentEmail: 'manager@igre.ae',
     type: 'RENT', property: 'APARTMENT', status: 'PUBLISHED',
     bed: 3, bath: 3, sqft: 1700, price: 125000, cover: IMG.i2,
     address: 'Al Khalidiyah, near park',
