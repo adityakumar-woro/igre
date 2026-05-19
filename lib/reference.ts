@@ -9,10 +9,17 @@ const AREA_CODES: Record<string, string> = {
   'hudayriyat-island': 'HD',
   'ferrari-yas-bay': 'FR',
   // Mainland residential
-  'khalifa-city': 'KC',
-  'al-raha-beach': 'RB',
+  'khalifa-city-a': 'KC',
+  'al-raha': 'RH',
   'mohammed-bin-zayed-city': 'MZ',
+  'zayed-city': 'ZC',
+  'shakhbout-city': 'SC',
+  'al-nahiyan': 'NH',
   'al-bateen': 'BT',
+  'al-reef': 'RF',
+  'baniyas': 'BN',
+  'al-riyadh-city': 'RY',
+  'al-shamkha': 'SK',
   'al-khalidiyah': 'KH',
 };
 

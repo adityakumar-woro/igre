@@ -27,6 +27,7 @@ export interface StripListing {
  */
 export function RecentListingsStrip({ listings }: { listings: StripListing[] }) {
   const containerRef = useRef<HTMLDivElement | null>(null);
+  const fallbackImage = '/areas/abu-dhabi-property.svg';
   const { scrollXProgress } = useScroll({ container: containerRef });
   const railWidth = useTransform(scrollXProgress, (v) => `${Math.max(8, v * 100)}%`);
 
@@ -107,6 +108,7 @@ export function RecentListingsStrip({ listings }: { listings: StripListing[] }) 
                     className="h-full w-full object-cover transition-transform duration-[1200ms] ease-editorial group-hover:scale-[1.06]"
                     data-placeholder="true"
                     loading="lazy"
+                    onError={(e) => { e.currentTarget.src = fallbackImage; }}
                   />
 
                   <div className="absolute inset-x-5 top-5 flex items-center justify-between">

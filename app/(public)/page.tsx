@@ -20,7 +20,7 @@ function homeJsonLd() {
   return {
     '@context': 'https://schema.org',
     '@type': 'RealEstateAgent',
-    name: 'IGRE — Real Estate Brokers',
+    name: 'IGRE — Ideal Greenland Real Estate LLC',
     image: 'https://igre.ae/og-image.jpg',
     address: {
       '@type': 'PostalAddress',
@@ -28,9 +28,9 @@ function homeJsonLd() {
       addressLocality: 'Abu Dhabi',
       addressCountry: 'AE',
     },
-    telephone: '+971581005220',
+    telephone: '+971525697323',
     email: 'igre.kaiser@gmail.com',
-    areaServed: ['Al Saadiyat Island', 'Al Reem Island', 'Yas Island', 'Hudayriyat Island', 'Corniche Road'],
+    areaServed: ['Abu Dhabi Corniche Road', 'Al Reem Island', 'Al Saadiyat Island', 'Yas Island', 'Al Nahiyan', 'Al Bateen', 'Mohammed Bin Zayed City', 'Khalifa City A', 'Al Raha', 'Zayed City', 'Shakhbout City', 'Al Reef', 'Baniyas', 'Al Riyadh City', 'Al Shamkha'],
   };
 }
 
@@ -84,7 +84,7 @@ export default async function HomePage() {
 
       {/* 2. Marquee — area names ticker */}
       <AreasMarquee
-        items={['Saadiyat', 'Reem', 'Yas', 'Hudayriyat', 'Corniche', 'Yas Bay']}
+        items={['Corniche Road', 'Al Reem', 'Saadiyat', 'Yas Island', 'MBZ City', 'Khalifa City A', 'Al Raha', 'Al Bateen']}
         variant="dark"
         duration={28}
       />
@@ -147,7 +147,7 @@ export default async function HomePage() {
 
       {/* 12. Marquee — closing flourish */}
       <AreasMarquee
-        items={['Saadiyat Island', 'Al Reem', 'Yas Bay', 'Hudayriyat Coast', 'Abu Dhabi Corniche', 'Ferrari World']}
+        items={['Abu Dhabi Corniche', 'Al Nahiyan', 'Al Bateen', 'Shakhbout City', 'Al Reef', 'Baniyas', 'Al Riyadh City', 'Al Shamkha']}
         variant="light"
         duration={36}
       />

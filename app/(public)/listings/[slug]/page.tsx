@@ -82,7 +82,7 @@ export default async function ListingPage({ params }: PageProps) {
   const whatsappMsg = encodeURIComponent(
     `Hi, I'm interested in ${listing.title} (${listing.reference}). Is it still available?`
   );
-  const whatsappUrl = `https://wa.me/${listing.agent.phone?.replace(/\D/g, '') ?? '971581005220'}?text=${whatsappMsg}`;
+  const whatsappUrl = `https://wa.me/${listing.agent.phone?.replace(/\D/g, '') ?? '971525697323'}?text=${whatsappMsg}`;
 
   return (
     <article className="pt-32 md:pt-40">

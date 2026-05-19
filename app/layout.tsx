@@ -1,31 +1,21 @@
 import './globals.css';
 import type { Metadata, Viewport } from 'next';
-import { Fraunces, Inter, IBM_Plex_Sans_Arabic } from 'next/font/google';
+import { Cormorant_Garamond, DM_Sans } from 'next/font/google';
 import { SmoothScroll } from '@/components/motion/SmoothScroll';
-import { CustomCursor } from '@/components/motion/CustomCursor';
 import { SessionProvider } from '@/components/shared/SessionProvider';
 
-const fraunces = Fraunces({
+const cormorant = Cormorant_Garamond({
   subsets: ['latin'],
   display: 'swap',
-  variable: '--font-fraunces',
-  axes: ['opsz', 'SOFT'],
-  // No `weight` here — Fraunces is variable, weight is `variable` by default
-  // which lets us use any weight via font-weight CSS without re-fetching.
+  variable: '--font-display',
+  weight: ['400', '500', '600', '700'],
 });
 
-const inter = Inter({
+const dmSans = DM_Sans({
   subsets: ['latin'],
   display: 'swap',
-  variable: '--font-inter',
-  weight: ['300', '400', '500', '600'],
-});
-
-const plexArabic = IBM_Plex_Sans_Arabic({
-  subsets: ['arabic'],
-  display: 'swap',
-  variable: '--font-plex-arabic',
-  weight: ['300', '400', '500'],
+  variable: '--font-sans',
+  weight: ['300', '400', '500', '600', '700'],
 });
 
 export const metadata: Metadata = {
@@ -35,9 +25,9 @@ export const metadata: Metadata = {
     template: '%s | IGRE',
   },
   description:
-    'Sales, leasing, and brokerage on Abu Dhabi\'s islands. Saadiyat, Reem, Yas, Hudayriyat, Corniche.',
+    'Sales, rentals, leasing, and brokerage across Abu Dhabi islands, mainland communities, and city neighbourhoods.',
   openGraph: {
-    title: 'IGRE — Real Estate Brokers, Abu Dhabi',
+    title: 'IGRE — Ideal Greenland Real Estate LLC, Abu Dhabi',
     description: 'Property in Abu Dhabi, told properly.',
     locale: 'en_AE',
     type: 'website',
@@ -63,13 +53,12 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${fraunces.variable} ${inter.variable} ${plexArabic.variable}`}>
-      <body className="bg-bone text-ink has-custom-cursor">
+    <html lang="en" className={`${cormorant.variable} ${dmSans.variable}`}>
+      <body className="bg-bone text-ink">
         <SessionProvider>
           <SmoothScroll>
             {children}
           </SmoothScroll>
-          <CustomCursor />
         </SessionProvider>
       </body>
     </html>

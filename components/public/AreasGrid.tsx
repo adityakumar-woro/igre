@@ -2,7 +2,6 @@
 
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { formatAED } from '@/lib/format';
 
 export interface AreaCard {
   id: string;
@@ -11,6 +10,35 @@ export interface AreaCard {
   tagline: string;
   heroImageUrl: string;
   startingPrice2BhkSale: number | null;
+}
+
+const LOCATION_IMAGES: Record<string, string> = {
+  'al-saadiyat-island': 'https://images.pexels.com/photos/21856196/pexels-photo-21856196.jpeg?auto=compress&cs=tinysrgb&w=1800',
+  'al-reem-island': 'https://cdn.pixabay.com/photo/2021/08/19/12/03/city-6557858_1280.jpg',
+  'corniche-road': 'https://cdn.pixabay.com/photo/2020/06/02/06/30/abu-dhabi-5249641_1280.jpg',
+  'yas-island': 'https://upload.wikimedia.org/wikipedia/commons/2/28/Yas_Marina_Circuit_%2B_Ferrari_World_-Abu_Dhabi.jpg',
+  'hudayriyat-island': 'https://cdn.pixabay.com/photo/2019/05/18/23/57/city-4212886_1280.jpg',
+  'ferrari-yas-bay': 'https://upload.wikimedia.org/wikipedia/commons/2/28/Yas_Marina_Circuit_%2B_Ferrari_World_-Abu_Dhabi.jpg',
+  'al-nahiyan': 'https://cdn.pixabay.com/photo/2016/02/03/20/19/abu-dhabi-1177898_1280.jpg',
+  'al-bateen': 'https://upload.wikimedia.org/wikipedia/commons/f/f0/Al_Bateen_Beach_2.jpg',
+  'mohammed-bin-zayed-city': 'https://images.pexels.com/photos/8481173/pexels-photo-8481173.jpeg?auto=compress&cs=tinysrgb&w=1800',
+  'khalifa-city-a': 'https://images.pexels.com/photos/8481173/pexels-photo-8481173.jpeg?auto=compress&cs=tinysrgb&w=1800',
+  'al-raha': 'https://upload.wikimedia.org/wikipedia/commons/e/e9/Al_Dar_Hq_architecutal_view.jpg',
+  'zayed-city': 'https://images.pexels.com/photos/8481173/pexels-photo-8481173.jpeg?auto=compress&cs=tinysrgb&w=1800',
+  'shakhbout-city': 'https://images.pexels.com/photos/8481173/pexels-photo-8481173.jpeg?auto=compress&cs=tinysrgb&w=1800',
+  'al-reef': 'https://images.pexels.com/photos/8481173/pexels-photo-8481173.jpeg?auto=compress&cs=tinysrgb&w=1800',
+  'baniyas': 'https://images.pexels.com/photos/8481173/pexels-photo-8481173.jpeg?auto=compress&cs=tinysrgb&w=1800',
+  'al-riyadh-city': 'https://images.pexels.com/photos/8481173/pexels-photo-8481173.jpeg?auto=compress&cs=tinysrgb&w=1800',
+  'al-shamkha': 'https://images.pexels.com/photos/8481173/pexels-photo-8481173.jpeg?auto=compress&cs=tinysrgb&w=1800',
+};
+
+const INTERNET_FALLBACK_IMAGE = 'https://cdn.pixabay.com/photo/2020/06/02/06/30/abu-dhabi-5249641_1280.jpg';
+
+function areaImage(area: AreaCard) {
+  if (!area.heroImageUrl || area.heroImageUrl.includes('/areas/abu-dhabi-property')) {
+    return LOCATION_IMAGES[area.slug] ?? INTERNET_FALLBACK_IMAGE;
+  }
+  return area.heroImageUrl;
 }
 
 const ACCENTS = ['gold', 'sunset', 'gulf', 'sage', 'rose', 'amber'] as const;
@@ -45,7 +73,7 @@ export function AreasGrid({ areas }: { areas: AreaCard[] }) {
       <div className="container-editorial relative z-10 py-32 md:py-44">
         <div className="mb-20 flex flex-col items-baseline gap-6 md:flex-row md:items-end md:justify-between">
           <h2 className="max-w-[20ch] font-display text-4xl leading-[1.05] tracking-editorial md:text-7xl">
-            Areas we know.
+            Areas we serve.
           </h2>
           <Link
             href="/areas"
@@ -53,7 +81,7 @@ export function AreasGrid({ areas }: { areas: AreaCard[] }) {
             className="group inline-flex items-baseline gap-3 self-start md:self-auto"
           >
             <span className="text-[11px] uppercase tracking-[0.28em] text-mute group-hover:text-ink">
-              See all six
+              See all areas
             </span>
             <span className="block h-px w-12 bg-ink transition-all duration-500 ease-editorial group-hover:w-24" />
           </Link>
@@ -62,6 +90,7 @@ export function AreasGrid({ areas }: { areas: AreaCard[] }) {
         <div className="grid grid-cols-1 gap-x-10 gap-y-20 md:grid-cols-2 md:gap-y-24">
           {areas.map((a, i) => {
             const accent = ACCENTS[i % ACCENTS.length];
+            const imageSrc = areaImage(a);
             return (
               <motion.div
                 key={a.id}
@@ -75,11 +104,17 @@ export function AreasGrid({ areas }: { areas: AreaCard[] }) {
                   <div className="relative aspect-[4/5] w-full overflow-hidden rounded-sm shadow-[0_30px_60px_-30px_rgba(14,17,22,0.4)]">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
-                      src={a.heroImageUrl}
+                      src={imageSrc}
                       alt={a.name}
                       className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1400ms] ease-editorial group-hover:scale-[1.06]"
                       data-placeholder="true"
                       loading="lazy"
+                      onError={(e) => {
+                        const img = e.currentTarget;
+                        if (img.dataset.fallbackApplied) return;
+                        img.dataset.fallbackApplied = 'true';
+                        img.src = LOCATION_IMAGES[a.slug] ?? INTERNET_FALLBACK_IMAGE;
+                      }}
                     />
                     {/* Bottom shadow for legibility */}
                     <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-ink/85 via-ink/30 to-transparent" />
@@ -104,9 +139,7 @@ export function AreasGrid({ areas }: { areas: AreaCard[] }) {
                   {/* Below-card meta row */}
                   <div className="mt-5 flex items-baseline justify-between gap-4 px-1">
                     <span className="font-mono text-[11px] uppercase tracking-[0.22em] text-mute">
-                      {a.startingPrice2BhkSale
-                        ? `From ${formatAED(a.startingPrice2BhkSale, { compact: true })}`
-                        : ''}
+                      Sales & rentals
                     </span>
                     <span className="text-mute transition-transform group-hover:translate-x-1">→</span>
                   </div>

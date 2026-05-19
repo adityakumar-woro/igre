@@ -64,7 +64,7 @@ export function LoginShell({ eyebrow, title, subtitle, children }: Props) {
             transition={{ duration: 1, delay: 0.7 }}
             className="font-mono text-[10px] uppercase tracking-[0.28em] text-ink/40"
           >
-            Real Estate · Abu Dhabi · Established 2010
+            Ideal Greenland Real Estate LLC · Established 2023
           </motion.p>
         </aside>
 

@@ -16,7 +16,7 @@ const STATS: Stat[] = [
   {
     value: 6,
     label: 'Areas covered',
-    sub: 'Saadiyat, Reem, Yas, Hudayriyat, Corniche, Yas Bay.',
+    sub: 'Islands, mainland villa communities, and established city neighbourhoods.',
     tone: 'gold',
     bg: 'https://images.unsplash.com/photo-1582719508461-905c673771fd?w=1200&q=80',
   },

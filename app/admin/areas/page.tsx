@@ -15,7 +15,7 @@ export default async function AdminAreasPage() {
       <div>
         <p className="text-[11px] uppercase tracking-[0.28em] text-mute">Areas</p>
         <h1 className="mt-3 font-display text-4xl tracking-editorial md:text-5xl">
-          Six places, edited from here.
+          Abu Dhabi areas, edited from here.
         </h1>
         <p className="mt-3 max-w-[60ch] text-sm text-mute">
           Click any area to update its content, hero photography, and starting prices.

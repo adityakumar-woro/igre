@@ -31,30 +31,11 @@ export function Hero() {
       <div className="container-editorial relative z-10 grid min-h-[100svh] grid-cols-1 items-center gap-12 pb-24 pt-32 lg:grid-cols-12 lg:gap-16 lg:pt-36">
         {/* Left — copy column */}
         <div className="order-2 flex flex-col lg:order-1 lg:col-span-7">
-          {/* Pulsing pill */}
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
-          >
-            <Link
-              href="/areas/al-saadiyat-island"
-              data-cursor="explore"
-              className="group inline-flex items-center gap-3 rounded-full border border-gold/40 bg-bone/60 px-4 py-2 backdrop-blur-sm transition-colors hover:border-gold hover:bg-bone/80"
-            >
-              <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-gold opacity-75" />
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-gold" />
-              </span>
-              <span className="text-[11px] uppercase tracking-[0.22em] text-ink">
-                Now selling on Saadiyat
-              </span>
-              <span className="text-gold transition-transform group-hover:translate-x-1">→</span>
-            </Link>
-          </motion.div>
-
           {/* Big headline */}
-          <h1 className="mt-10 font-display tracking-editorial text-[clamp(2.6rem,7.4vw,7rem)] leading-[0.95] text-ink">
+          <p className="text-[11px] uppercase tracking-[0.28em] text-mute">
+            Ideal Greenland Real Estate LLC
+          </p>
+          <h1 className="mt-8 font-display tracking-editorial text-[clamp(2.6rem,7.4vw,7rem)] leading-[0.95] text-ink">
             <SplitText as="span" className="block" stagger={0.022} delay={0.15}>
               Property in Abu Dhabi,
             </SplitText>
@@ -77,7 +58,7 @@ export function Hero() {
             transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: 1.1 }}
             className="mt-8 max-w-[52ch] text-base leading-[1.6] text-ink/75 md:text-lg"
           >
-            A small Abu Dhabi brokerage. Sales, leasing, and broker collaborations across Saadiyat, Reem, Yas, Hudayriyat, and the Corniche. We answer the phone.
+            Ideal Greenland Real Estate LLC is an Abu Dhabi brokerage for sales, rentals, leasing, and broker collaborations across the islands, mainland communities, and established city neighbourhoods. We answer the phone.
           </motion.p>
 
           {/* CTAs */}
@@ -112,9 +93,9 @@ export function Hero() {
             transition={{ duration: 1, delay: 1.5 }}
             className="mt-14 grid max-w-md grid-cols-3 gap-6 border-t border-line pt-6"
           >
-            <Stat label="Areas covered" value="6" />
+            <Stat label="Areas covered" value="15+" />
             <Stat label="On the books" value="50+" />
-            <Stat label="Years in AD" value="15+" />
+            <Stat label="Established" value="2023" />
           </motion.div>
         </div>
 
@@ -141,6 +122,7 @@ export function Hero() {
                 loading="eager"
                 fetchPriority="high"
                 data-placeholder="true"
+                onError={(e) => { e.currentTarget.src = '/areas/abu-dhabi-property.svg'; }}
               />
               <HeroCanvas src={HERO_IMAGE} className="absolute inset-0" />
               {/* Subtle gold edge at bottom */}
@@ -148,10 +130,10 @@ export function Hero() {
               {/* Caption block on the image */}
               <div className="absolute inset-x-6 bottom-6 z-10 text-bone">
                 <p className="font-mono text-[10px] uppercase tracking-[0.22em] opacity-80">
-                  Featured · Saadiyat
+                  Sales · Rentals · Leasing
                 </p>
                 <p className="mt-1 font-display text-2xl tracking-editorial">
-                  A four-bedroom on the lagoon.
+                  Abu Dhabi homes, handled locally.
                 </p>
                 <Link
                   href="/listings"
@@ -182,7 +164,7 @@ export function Hero() {
               transition={{ duration: 1, delay: 1.8, ease: [0.22, 1, 0.36, 1] }}
               className="absolute right-3 top-3 rounded-full bg-gold px-4 py-2 text-bone shadow-lg md:-right-3 md:-top-3"
             >
-              <p className="font-mono text-[10px] uppercase tracking-[0.22em]">Est. 2010</p>
+              <p className="font-mono text-[10px] uppercase tracking-[0.22em]">Est. 2023</p>
             </motion.div>
           </motion.div>
         </div>

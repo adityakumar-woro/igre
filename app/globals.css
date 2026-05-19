@@ -19,8 +19,8 @@
 
   --ease-editorial: cubic-bezier(0.22, 1, 0.36, 1);
 
-  --font-display: var(--font-fraunces), Georgia, serif;
-  --font-sans: var(--font-inter), system-ui, sans-serif;
+  --font-display-stack: var(--font-display), Georgia, serif;
+  --font-sans-stack: var(--font-sans), system-ui, sans-serif;
 }
 
 :root {
@@ -50,7 +50,7 @@
 html, body {
   background: var(--bone);
   color: var(--ink);
-  font-family: var(--font-inter), system-ui, sans-serif;
+  font-family: var(--font-sans-stack);
   font-size: 17px;
   line-height: 1.55;
 }
@@ -67,11 +67,10 @@ html, body {
 
 /* Editorial display type */
 .font-display {
-  font-family: var(--font-fraunces), Georgia, serif;
-  font-weight: 400;
-  letter-spacing: -0.025em;
+  font-family: var(--font-display-stack);
+  font-weight: 600;
+  letter-spacing: 0;
   line-height: 0.95;
-  font-variation-settings: "opsz" 144;
 }
 
 /* Focus ring — gold, 2px, only when keyboard-navigating */
@@ -98,17 +97,6 @@ html.lenis {
 }
 .lenis.lenis-stopped {
   overflow: hidden;
-}
-
-/* Custom cursor */
-.has-custom-cursor {
-  cursor: none;
-}
-@media (hover: none) {
-  .has-custom-cursor {
-    cursor: auto;
-  }
-  .igre-cursor { display: none; }
 }
 
 /* Hairline divider */
@@ -161,8 +149,6 @@ html.lenis {
   }
   .image-reveal img { transform: none; opacity: 1; }
   .reveal-word > span { transform: none !important; }
-  .igre-cursor { display: none !important; }
-  .has-custom-cursor { cursor: auto !important; }
 }
 
 /* Hide scrollbars cleanly on horizontal scrollers */

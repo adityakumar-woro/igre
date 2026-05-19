@@ -53,7 +53,7 @@ export function ContactForm() {
       <div className="border border-line p-12">
         <p className="font-display text-4xl leading-[1.05] tracking-editorial">Got it.</p>
         <p className="mt-6 max-w-[40ch] text-mute">
-          One of our brokers will get back to you within the day. If it&apos;s urgent, call <a href="tel:+971581005220" className="text-ink hover:text-gold">+971 58 100 5220</a>.
+          One of our brokers will get back to you within the day. If it&apos;s urgent, call Mary Angel on <a href="tel:+971525697323" className="text-ink hover:text-gold">+971 52 569 7323</a>.
         </p>
       </div>
     );

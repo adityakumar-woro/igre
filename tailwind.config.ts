@@ -26,13 +26,13 @@ const config: Config = {
         danger: 'var(--danger)',
       },
       fontFamily: {
-        display: ['var(--font-fraunces)', 'Georgia', 'serif'],
-        sans: ['var(--font-inter)', 'system-ui', 'sans-serif'],
-        arabic: ['var(--font-plex-arabic)', 'system-ui', 'sans-serif'],
+        display: ['var(--font-display-stack)', 'Georgia', 'serif'],
+        sans: ['var(--font-sans-stack)', 'system-ui', 'sans-serif'],
+        arabic: ['var(--font-sans-stack)', 'system-ui', 'sans-serif'],
         mono: ['ui-monospace', 'SFMono-Regular', 'monospace'],
       },
       letterSpacing: {
-        editorial: '-0.02em',
+        editorial: '0',
         wide: '0.08em',
       },
       transitionTimingFunction: {

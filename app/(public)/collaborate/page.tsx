@@ -15,7 +15,7 @@ export default function CollaboratePage() {
           You bring the buyer. We bring the building.
         </h1>
         <p className="mt-10 max-w-[60ch] text-base leading-[1.7] text-ink/80 md:text-lg">
-          We co-broke with agencies across the UAE on Abu Dhabi properties. The terms are simple: fair splits, fast paperwork, listings stay listed where they were. If your buyer wants Saadiyat, Reem, Yas, Hudayriyat, or the Corniche — we can almost certainly help.
+          We co-broke with agencies across the UAE on Abu Dhabi properties. The terms are simple: fair splits, fast paperwork, listings stay listed where they were. If your buyer or tenant wants an island apartment, a city address, or a mainland family villa — we can almost certainly help.
         </p>
       </div>
 

@@ -94,11 +94,11 @@ export function QuietCTA() {
             <span className="block h-px w-12 bg-ink transition-all duration-500 group-hover:w-20" />
           </MagneticLink>
           <Link
-            href="tel:+971581005220"
+            href="tel:+971525697323"
             data-cursor="call"
             className="group inline-flex items-center gap-3 border border-bone/30 px-7 py-4 transition-colors hover:border-gold"
           >
-            <span className="text-[11px] uppercase tracking-[0.28em]">+971 58 100 5220</span>
+            <span className="text-[11px] uppercase tracking-[0.28em]">+971 52 569 7323</span>
           </Link>
         </motion.div>
       </div>

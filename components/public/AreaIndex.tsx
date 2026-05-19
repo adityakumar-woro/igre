@@ -3,7 +3,6 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { formatAED } from '@/lib/format';
 
 export interface AreaIndexItem {
   id: string;
@@ -13,15 +12,28 @@ export interface AreaIndexItem {
   heroImageUrl: string;
 }
 
-/**
- * The Index — typographic table of contents for the six areas, with:
- *   - Animated colour-mesh background (CSS blobs, GPU-light)
- *   - Floating thumbnail-as-letter on row hover
- *   - Row reveals on scroll, hairline divider draw-in
- *   - Massive serif row label that scales slightly on hover
- */
+const FOCUS_AREAS = [
+  'Abu Dhabi Corniche Road',
+  'Al Reem Island',
+  'Al Saadiyat Island',
+  'Yas Island',
+  'Ferrari World / Yas Bay',
+  'Al Nahiyan',
+  'Al Bateen',
+  'MBZ - Mohammed Bin Zayed City',
+  'Khalifa City A',
+  'Al Raha',
+  'Zayed City',
+  'Shakhbout City',
+  'Al Reef',
+  'Baniyas',
+  'Al Riyadh City',
+  'Al Shamkha',
+];
+
 export function AreaIndex({ areas }: { areas: AreaIndexItem[] }) {
   const [hover, setHover] = useState<number | null>(null);
+  const fallbackImage = '/areas/abu-dhabi-property.svg';
 
   return (
     <section className="relative isolate overflow-hidden bg-bone">
@@ -42,13 +54,20 @@ export function AreaIndex({ areas }: { areas: AreaIndexItem[] }) {
       <div className="container-editorial relative z-10 py-32 md:py-44">
         <div className="grid grid-cols-1 gap-12 md:grid-cols-12 md:gap-16">
           <div className="md:col-span-3">
-            <p className="text-[11px] uppercase tracking-[0.28em] text-mute">The Index</p>
+            <p className="text-[11px] uppercase tracking-[0.28em] text-mute">Abu Dhabi coverage</p>
             <p className="mt-6 max-w-[28ch] font-display text-2xl leading-[1.2] tracking-editorial md:text-3xl">
-              Six places we know intimately.
+              We know all areas in Abu Dhabi, with special focus where clients ask most.
             </p>
             <p className="mt-4 max-w-[34ch] text-sm text-mute">
-              Each row carries a starting price, drawn from current market data. Hover a row to see the place.
+              From island apartments to mainland family villas, IGRE handles both sale and rent enquiries with area-specific guidance.
             </p>
+            <div className="mt-8 flex flex-wrap gap-2">
+              {FOCUS_AREAS.map((area) => (
+                <span key={area} className="rounded-full border border-line bg-bone/70 px-3 py-1 text-[11px] text-ink/75">
+                  {area}
+                </span>
+              ))}
+            </div>
           </div>
 
           <div className="md:col-span-9">
@@ -92,16 +111,14 @@ export function AreaIndex({ areas }: { areas: AreaIndexItem[] }) {
                             className="hidden h-12 w-20 overflow-hidden rounded-sm md:inline-block"
                           >
                             {/* eslint-disable-next-line @next/next/no-img-element */}
-                            <img src={a.heroImageUrl} alt="" className="h-full w-full object-cover" data-placeholder="true" />
+                            <img src={a.heroImageUrl} alt="" className="h-full w-full object-cover" data-placeholder="true" onError={(e) => { e.currentTarget.src = fallbackImage; }} />
                           </motion.span>
                         )}
                       </AnimatePresence>
                     </span>
 
-                    <span className="tnum col-span-3 text-right text-sm text-mute md:text-base">
-                      {a.startingPrice2BhkSale
-                        ? `From ${formatAED(a.startingPrice2BhkSale, { compact: true })}`
-                        : '—'}
+                    <span className="col-span-3 text-right text-xs uppercase tracking-[0.18em] text-mute md:text-sm">
+                      Sales & rent
                     </span>
 
                     <span className="col-span-1 text-right text-mute transition-transform duration-500 group-hover:translate-x-1">
@@ -125,7 +142,7 @@ export function AreaIndex({ areas }: { areas: AreaIndexItem[] }) {
                     className="h-80 w-60 overflow-hidden rounded-sm bg-sand shadow-[0_30px_80px_-30px_rgba(14,17,22,0.45)]"
                   >
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={areas[hover].heroImageUrl} alt="" className="h-full w-full object-cover" data-placeholder="true" />
+                    <img src={areas[hover].heroImageUrl} alt="" className="h-full w-full object-cover" data-placeholder="true" onError={(e) => { e.currentTarget.src = fallbackImage; }} />
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -133,8 +150,8 @@ export function AreaIndex({ areas }: { areas: AreaIndexItem[] }) {
           </div>
         </div>
 
-        <p className="mt-12 max-w-[60ch] text-xs italic text-mute">
-          Indicative starting price based on current market data. Actual prices vary by tower, view, and finish.
+        <p className="mt-12 max-w-[68ch] text-xs italic text-mute">
+          We cover apartments, villas, townhouses, and staff accommodation across Abu Dhabi. Availability changes quickly, so speak with us for live sale and rental options.
         </p>
       </div>
     </section>

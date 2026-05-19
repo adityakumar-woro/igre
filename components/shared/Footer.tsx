@@ -33,8 +33,8 @@ export async function Footer() {
       <div className="relative z-10 border-b border-bone/10">
         <FooterMarquee
           items={[
-            'Saadiyat Island', 'Al Reem Island', 'Yas Island', 'Hudayriyat Island',
-            'Abu Dhabi Corniche', 'Yas Bay', 'Ferrari World district',
+            'Abu Dhabi Corniche', 'Al Reem Island', 'Al Saadiyat Island', 'Yas Island',
+            'MBZ City', 'Khalifa City A', 'Al Bateen', 'Al Riyadh City',
           ]}
         />
       </div>
@@ -62,8 +62,8 @@ export async function Footer() {
           </p>
 
           <p className="mt-8 max-w-[44ch] text-sm leading-[1.6] text-bone/70">
-            A small Abu Dhabi brokerage. Sales, leasing, and broker collaborations across Saadiyat,
-            Reem, Yas, Hudayriyat, and the Corniche. Local since day one.
+            Ideal Greenland Real Estate LLC. Sales, rentals, leasing, and broker collaborations across
+            Abu Dhabi islands, mainland communities, and city neighbourhoods.
           </p>
         </div>
 
@@ -88,11 +88,11 @@ export async function Footer() {
           <ul className="mt-8 space-y-2 text-base">
             <li>
               <a
-                href={`tel:${map.company_phone ?? '+971581005220'}`}
+                href={`tel:${map.company_phone ?? '+971525697323'}`}
                 className="text-bone hover:text-gold"
                 data-cursor="call"
               >
-                {map.company_phone ?? '+971 58 100 5220'}
+                {map.company_phone ?? '+971 52 569 7323'}
               </a>
             </li>
             <li>
@@ -106,7 +106,7 @@ export async function Footer() {
             </li>
             <li>
               <a
-                href={`https://wa.me/${map.whatsapp_number ?? '971581005220'}`}
+                href={`https://wa.me/${map.whatsapp_number ?? '971525697323'}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-bone/80 hover:text-gold"
@@ -145,7 +145,7 @@ export async function Footer() {
       <div className="relative z-10 border-t border-bone/10">
         <div className="container-editorial flex flex-col gap-4 py-8 text-xs text-bone/50 md:flex-row md:items-center md:justify-between">
           <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
-            <span>{map.footer_copyright ?? `© ${year} IGRE Real Estate Brokers. All rights reserved.`}</span>
+            <span>{map.footer_copyright ?? `© ${year} Ideal Greenland Real Estate LLC. All rights reserved.`}</span>
             <span className="font-mono uppercase tracking-[0.18em]">
               RERA · {map.rera_license ?? 'TODO'}
             </span>

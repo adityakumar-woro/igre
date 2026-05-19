@@ -86,7 +86,7 @@ export function SettingsForm({ initial }: { initial: Partial<FormValues> }) {
         <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
           <Field label="Instagram URL" name="instagram_url" register={register} />
           <Field label="LinkedIn URL" name="linkedin_url" register={register} />
-          <Field label="WhatsApp number" name="whatsapp_number" register={register} placeholder="971581005220" />
+          <Field label="WhatsApp number" name="whatsapp_number" register={register} placeholder="971525697323" />
         </div>
       </Section>
 

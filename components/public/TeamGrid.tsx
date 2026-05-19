@@ -24,6 +24,8 @@ function initials(name: string) {
  *   - Subtle hover lift + photo zoom
  */
 export function TeamGrid({ team }: { team: TeamMember[] }) {
+  const fallbackImage = '/team/mary-angel.svg';
+
   return (
     <section className="bg-bone">
       <div className="container-editorial py-24 md:py-32">
@@ -57,6 +59,7 @@ export function TeamGrid({ team }: { team: TeamMember[] }) {
                       alt={m.name}
                       className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1200ms] ease-editorial group-hover:scale-[1.06]"
                       loading="lazy"
+                      onError={(e) => { e.currentTarget.src = fallbackImage; }}
                     />
                     {/* Subtle gradient at bottom for legibility of any badge if added later */}
                     <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-ink/30 to-transparent" />

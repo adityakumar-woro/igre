@@ -52,6 +52,12 @@ export function RevealImage({
         alt={alt}
         loading={priority ? 'eager' : 'lazy'}
         decoding="async"
+        onError={(event) => {
+          const img = event.currentTarget;
+          if (img.dataset.fallbackApplied) return;
+          img.dataset.fallbackApplied = 'true';
+          img.src = '/areas/abu-dhabi-property.svg';
+        }}
         className={cn('h-full w-full object-cover', imgClassName)}
         data-placeholder={placeholder ? 'true' : undefined}
       />

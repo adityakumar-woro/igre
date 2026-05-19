@@ -6,7 +6,7 @@ export function Logo({ className, mark = false, light = false }: { className?: s
   return (
     <Link
       href="/"
-      aria-label="IGRE — Real Estate Brokers, Abu Dhabi"
+      aria-label="IGRE — Ideal Greenland Real Estate LLC, Abu Dhabi"
       className={cn('inline-flex items-center gap-3', className)}
       data-cursor="home"
     >

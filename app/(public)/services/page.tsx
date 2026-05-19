@@ -12,7 +12,7 @@ const SERVICES = [
     n: '01',
     title: 'Sales',
     body:
-      'Primary and secondary, freehold and investor-grade. We sell what we know — Saadiyat, Reem, Yas, Hudayriyat, Corniche. We will not list a unit we have not walked through.',
+      'Primary and secondary, freehold and investor-grade. We sell and rent across Abu Dhabi — Saadiyat, Reem, Yas, Corniche, Al Raha, MBZ, Khalifa City A, Zayed City, Shakhbout, Al Reef, Baniyas, Al Riyadh, and Al Shamkha. We will not list a unit we have not checked.',
     href: '/listings?listingType=SALE',
     cta: 'See properties for sale',
   },

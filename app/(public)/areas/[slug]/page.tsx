@@ -75,7 +75,7 @@ export default async function AreaPage({ params }: PageProps) {
             </tbody>
           </table>
           <p className="mt-4 text-xs italic text-mute">
-            Indicative starting price based on current market data. Actual prices vary by tower, view, and finish.
+            Availability and prices change quickly. Speak with IGRE for current sale and rental options.
           </p>
         </div>
         <div className="md:col-span-7">
