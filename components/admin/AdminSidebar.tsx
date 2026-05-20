@@ -16,9 +16,9 @@ const NAV: NavItem[] = [
   { href: '/admin/listings/new', label: 'Add listing' },
 
   // Pipeline
-  { href: '/dashboard/leads', label: 'All leads', group: 'Pipeline' },
-  { href: '/dashboard/enquiries', label: 'All enquiries' },
-  { href: '/dashboard/viewings', label: 'All viewings' },
+  { href: '/admin/leads', label: 'All leads', group: 'Pipeline' },
+  { href: '/admin/enquiries', label: 'All enquiries' },
+  { href: '/admin/viewings', label: 'All viewings' },
 
   // Content
   { href: '/admin/areas', label: 'Areas', group: 'Content' },

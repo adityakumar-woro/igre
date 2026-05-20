@@ -6,6 +6,7 @@ import { MobileNav } from '@/components/dashboard/MobileNav';
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
   const session = await auth();
   if (!session?.user) redirect('/login?callbackUrl=/dashboard');
+  if (session.user.role !== 'MANAGER') redirect('/403');
 
   const user = {
     id: session.user.id,

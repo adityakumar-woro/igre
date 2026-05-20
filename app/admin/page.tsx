@@ -171,7 +171,7 @@ export default async function AdminOverviewPage() {
                     <tr key={l.id} className="hover:bg-sand/20">
                       <td className="px-4 py-3 font-mono text-xs">{l.reference}</td>
                       <td className="max-w-xs px-4 py-3">
-                        <Link href={`/dashboard/listings/${l.id}/edit`} className="hover:text-gold">
+                        <Link href={`/admin/listings/${l.id}/edit`} className="hover:text-gold">
                           {l.title.length > 60 ? l.title.slice(0, 60) + '…' : l.title}
                         </Link>
                       </td>
@@ -209,7 +209,7 @@ export default async function AdminOverviewPage() {
       <section>
         <div className="mb-4 flex items-baseline justify-between">
           <h2 className="font-display text-2xl tracking-editorial md:text-3xl">Recent enquiries</h2>
-          <Link href="/dashboard/enquiries" className="text-[11px] uppercase tracking-[0.18em] text-mute hover:text-ink">
+          <Link href="/admin/enquiries" className="text-[11px] uppercase tracking-[0.18em] text-mute hover:text-ink">
             All →
           </Link>
         </div>

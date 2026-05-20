@@ -11,6 +11,7 @@ export default async function DashboardPage() {
   const session = await auth();
   const userId = session!.user.id;
   const isAdmin = session!.user.role === 'ADMIN';
+  const basePath = isAdmin ? '/admin' : '/dashboard';
 
   const listingFilter = isAdmin ? {} : { agentId: userId };
   const leadFilter = isAdmin ? {} : { agentId: userId };
@@ -62,7 +63,7 @@ export default async function DashboardPage() {
               {isAdmin ? 'Recent listings' : 'My listings'}
             </h2>
             <Link
-              href="/dashboard/listings"
+              href={`${basePath}/listings`}
               className="text-[11px] uppercase tracking-[0.18em] text-mute hover:text-ink"
               data-cursor="open"
             >
@@ -74,7 +75,7 @@ export default async function DashboardPage() {
             <div className="border border-line bg-bone p-8 text-center">
               <p className="font-display text-2xl tracking-editorial">No listings yet.</p>
               <Link
-                href="/dashboard/listings/new"
+                href={`${basePath}/listings/new`}
                 className="mt-4 inline-block text-[11px] uppercase tracking-[0.28em] text-gold hover:text-ink"
               >
                 Add your first listing →
@@ -97,7 +98,7 @@ export default async function DashboardPage() {
                     <tr key={l.id} className="hover:bg-sand/20">
                       <td className="px-4 py-3 font-mono text-xs">{l.reference}</td>
                       <td className="px-4 py-3">
-                        <Link href={`/dashboard/listings/${l.id}/edit`} className="hover:text-gold">
+                        <Link href={`${basePath}/listings/${l.id}/edit`} className="hover:text-gold">
                           {l.title.length > 50 ? l.title.slice(0, 50) + '…' : l.title}
                         </Link>
                       </td>
@@ -116,7 +117,7 @@ export default async function DashboardPage() {
           <div>
             <div className="mb-4 flex items-baseline justify-between">
               <h2 className="font-display text-2xl tracking-editorial md:text-3xl">Recent enquiries</h2>
-              <Link href="/dashboard/enquiries" className="text-[11px] uppercase tracking-[0.18em] text-mute hover:text-ink">
+              <Link href={`${basePath}/enquiries`} className="text-[11px] uppercase tracking-[0.18em] text-mute hover:text-ink">
                 All →
               </Link>
             </div>
@@ -142,7 +143,7 @@ export default async function DashboardPage() {
             <p className="tnum mt-3 font-display text-4xl tracking-editorial text-gold">{todaysViewings}</p>
             <p className="mt-1 text-xs text-mute">upcoming viewings</p>
             <Link
-              href="/dashboard/viewings"
+              href={`${basePath}/viewings`}
               className="mt-6 inline-block text-[11px] uppercase tracking-[0.28em] text-gold hover:text-ink"
             >
               See calendar →

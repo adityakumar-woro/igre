@@ -73,8 +73,8 @@ After login you'll be redirected to `/change-password` if `forcePasswordChange` 
 - **Auth.js v5 (next-auth beta)** — credentials provider, JWT sessions, bcrypt cost 12.
 - **RBAC** via `middleware.ts` (Edge) + `lib/rbac.ts` (server helpers).
   - `/admin/*` → `ADMIN`
-  - `/dashboard/*` → `MANAGER` or `ADMIN`
-  - `/my/*` → any authenticated user
+  - `/dashboard/*` → `MANAGER`
+  - `/my/*` → `USER`
   - Other → public
 - **Editorial design**: Fraunces (display) + Inter + IBM Plex Sans Arabic (RTL-ready), Tailwind 4 with the `Desert Pearl` palette as CSS variables.
 - **Motion**: Lenis smooth scroll, Framer Motion reveals, custom 2-layer cursor, magnetic buttons, R3F + custom GLSL shader for the hero.

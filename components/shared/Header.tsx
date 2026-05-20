@@ -46,6 +46,11 @@ export function Header() {
     : session?.user?.role === 'MANAGER'
       ? '/dashboard'
       : '/my/favourites';
+  const dashboardLabel = session?.user?.role === 'ADMIN'
+    ? 'Admin dashboard'
+    : session?.user?.role === 'MANAGER'
+      ? 'Agent dashboard'
+      : 'Client dashboard';
 
   return (
     <>
@@ -88,7 +93,7 @@ export function Header() {
                   data-cursor="enter"
                   className="text-[13px] uppercase tracking-[0.18em] text-ink"
                 >
-                  {session.user.role === 'ADMIN' ? 'Admin' : session.user.role === 'MANAGER' ? 'Dashboard' : 'My account'}
+                  {dashboardLabel}
                 </Link>
                 <button
                   onClick={() => signOut({ callbackUrl: '/' })}
@@ -140,9 +145,11 @@ export function Header() {
               className="border-b border-line py-5 font-display text-4xl tracking-editorial"
               style={{
                 transitionDelay: open ? `${i * 60}ms` : '0ms',
+                transitionDuration: '600ms',
+                transitionProperty: 'opacity, transform',
+                transitionTimingFunction: 'ease',
                 opacity: open ? 1 : 0,
                 transform: open ? 'translateX(0)' : 'translateX(-12px)',
-                transition: 'opacity 600ms ease, transform 600ms ease',
               }}
             >
               {item.label}
@@ -157,7 +164,7 @@ export function Header() {
                   onClick={() => setOpen(false)}
                   className="inline-flex items-center justify-between border border-ink px-5 py-4 text-[11px] uppercase tracking-[0.28em] text-ink"
                 >
-                  <span>{session.user.role === 'ADMIN' ? 'Admin' : session.user.role === 'MANAGER' ? 'Dashboard' : 'My account'}</span>
+                  <span>{dashboardLabel}</span>
                   <span>→</span>
                 </Link>
                 <button

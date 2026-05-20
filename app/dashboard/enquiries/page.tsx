@@ -18,6 +18,7 @@ const FILTERS = [
 export default async function EnquiriesPage({ searchParams }: PageProps) {
   const session = await auth();
   const isAdmin = session!.user.role === 'ADMIN';
+  const basePath = isAdmin ? '/admin' : '/dashboard';
   const { status } = await searchParams;
 
   // For Phase 2 we show all enquiries to ADMIN and to MANAGER (the spec eventually
@@ -55,7 +56,7 @@ export default async function EnquiriesPage({ searchParams }: PageProps) {
           {FILTERS.map((f) => (
             <Link
               key={f.v}
-              href={f.v ? `?status=${f.v}` : `/dashboard/enquiries`}
+              href={f.v ? `?status=${f.v}` : `${basePath}/enquiries`}
               className={`border px-3 py-1.5 text-xs uppercase tracking-[0.18em] transition ${
                 (status ?? '') === f.v ? 'border-ink bg-ink text-bone' : 'border-line text-mute hover:border-ink hover:text-ink'
               }`}
@@ -92,7 +93,7 @@ export default async function EnquiriesPage({ searchParams }: PageProps) {
                   {e.listing && (
                     <p className="mt-3 text-xs text-mute">
                       Re:{' '}
-                      <Link href={`/dashboard/listings/${e.listing.id}/edit`} className="text-ink hover:text-gold">
+                      <Link href={`${basePath}/listings/${e.listing.id}/edit`} className="text-ink hover:text-gold">
                         {e.listing.reference} — {e.listing.title}
                       </Link>
                     </p>
@@ -104,7 +105,7 @@ export default async function EnquiriesPage({ searchParams }: PageProps) {
                 <div className="flex shrink-0 flex-col items-end gap-2">
                   {e.lead ? (
                     <Link
-                      href={`/dashboard/leads/${e.lead.id}`}
+                      href={`${basePath}/leads/${e.lead.id}`}
                       className="text-[11px] uppercase tracking-[0.18em] text-success hover:text-ink"
                     >
                       View lead →
@@ -120,6 +121,7 @@ export default async function EnquiriesPage({ searchParams }: PageProps) {
                         message: e.message,
                         listingId: e.listingId,
                       }}
+                      basePath={basePath}
                     />
                   )}
                   <a

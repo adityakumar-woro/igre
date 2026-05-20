@@ -13,13 +13,14 @@ interface Props {
     message: string;
     listingId: string | null;
   };
+  basePath?: '/admin' | '/dashboard';
 }
 
 /**
  * Single-click "convert to lead" — POSTs /api/leads with enquiryId and the
  * enquiry's contact details. Navigates to the new lead on success.
  */
-export function ConvertEnquiryButton({ enquiry }: Props) {
+export function ConvertEnquiryButton({ enquiry, basePath = '/dashboard' }: Props) {
   const router = useRouter();
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState<string | null>(null);
@@ -46,7 +47,7 @@ export function ConvertEnquiryButton({ enquiry }: Props) {
         throw new Error(body?.error?.message || 'Failed');
       }
       const body = await res.json();
-      router.push(`/dashboard/leads/${body.id}`);
+      router.push(`${basePath}/leads/${body.id}`);
     } catch (e) {
       setErr(e instanceof Error ? e.message : 'Failed');
       setBusy(false);

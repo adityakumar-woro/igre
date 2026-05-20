@@ -2,7 +2,7 @@
 
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { signIn } from 'next-auth/react';
+import { getSession, signIn } from 'next-auth/react';
 import { useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
@@ -16,6 +16,20 @@ const ROLE_DEFAULT_REDIRECT: Record<Role, string> = {
   manager: '/dashboard',
   user:    '/my/favourites',
 };
+
+const SESSION_ROLE_DEFAULT_REDIRECT = {
+  ADMIN: '/admin',
+  MANAGER: '/dashboard',
+  USER: '/my/favourites',
+} as const;
+
+function isAllowedCallback(path: string | null, role: keyof typeof SESSION_ROLE_DEFAULT_REDIRECT) {
+  if (!path || !path.startsWith('/')) return false;
+  if (path.startsWith('/admin')) return role === 'ADMIN';
+  if (path.startsWith('/dashboard')) return role === 'MANAGER';
+  if (path.startsWith('/my')) return role === 'USER';
+  return true;
+}
 
 const ROLE_HINT: Record<Role, string> = {
   admin:   'Use your admin email. You\'ll land on /admin.',
@@ -53,9 +67,17 @@ export function LoginForm() {
       return;
     }
 
-    // Use the callback URL if it was passed (e.g. middleware redirect),
-    // otherwise route by the chosen role.
     router.refresh();
+    const session = await getSession();
+    const actualRole = session?.user?.role;
+    if (actualRole && actualRole in SESSION_ROLE_DEFAULT_REDIRECT) {
+      router.push(
+        isAllowedCallback(callbackUrl, actualRole)
+          ? callbackUrl!
+          : SESSION_ROLE_DEFAULT_REDIRECT[actualRole],
+      );
+      return;
+    }
     router.push(callbackUrl || ROLE_DEFAULT_REDIRECT[role]);
   };
 

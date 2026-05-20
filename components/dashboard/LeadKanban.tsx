@@ -35,7 +35,17 @@ export interface LeadCard {
  * other columns by inferring drop intent from the cursor position. Optimistic
  * update on the client; PATCH to /api/leads/[id] persists.
  */
-export function LeadKanban({ leads, isAdmin, currentUserId }: { leads: LeadCard[]; isAdmin: boolean; currentUserId: string }) {
+export function LeadKanban({
+  leads,
+  isAdmin,
+  currentUserId,
+  basePath = isAdmin ? '/admin' : '/dashboard',
+}: {
+  leads: LeadCard[];
+  isAdmin: boolean;
+  currentUserId: string;
+  basePath?: '/admin' | '/dashboard';
+}) {
   const router = useRouter();
   const [byStatus, setByStatus] = useState(() => groupByStatus(leads));
   const [dragId, setDragId] = useState<string | null>(null);
@@ -104,7 +114,7 @@ export function LeadKanban({ leads, isAdmin, currentUserId }: { leads: LeadCard[
                   whileHover={{ y: -2 }}
                   data-cursor="open"
                 >
-                  <Link href={`/dashboard/leads/${l.id}`} className="block">
+                  <Link href={`${basePath}/leads/${l.id}`} className="block">
                     <p className="font-medium text-ink">{l.name}</p>
                     <p className="mt-1 truncate text-mute">{l.phone}</p>
                     {l.budget && (

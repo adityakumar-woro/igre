@@ -24,6 +24,7 @@ export default async function DashboardListingsPage({ searchParams }: PageProps)
   const session = await auth();
   const userId = session!.user.id;
   const isAdmin = session!.user.role === 'ADMIN';
+  const basePath = isAdmin ? '/admin' : '/dashboard';
 
   const raw = await searchParams;
   const flat = Object.fromEntries(
@@ -78,7 +79,7 @@ export default async function DashboardListingsPage({ searchParams }: PageProps)
           </h1>
         </div>
         <Link
-          href="/dashboard/listings/new"
+          href={`${basePath}/listings/new`}
           data-cursor="new listing"
           className="group inline-flex items-center gap-3 self-start bg-ink px-6 py-3 text-bone transition-colors hover:bg-gulf md:self-auto"
         >
@@ -123,7 +124,7 @@ export default async function DashboardListingsPage({ searchParams }: PageProps)
                   <tr key={l.id} className="hover:bg-sand/20">
                     <td className="px-4 py-3 font-mono text-xs">{l.reference}</td>
                     <td className="max-w-xs px-4 py-3">
-                      <Link href={`/dashboard/listings/${l.id}/edit`} className="hover:text-gold">
+                      <Link href={`${basePath}/listings/${l.id}/edit`} className="hover:text-gold">
                         {l.title.length > 60 ? l.title.slice(0, 60) + '…' : l.title}
                       </Link>
                     </td>
@@ -146,6 +147,7 @@ export default async function DashboardListingsPage({ searchParams }: PageProps)
                         status={l.status}
                         isAdmin={isAdmin}
                         isOwner={isOwner}
+                        basePath={basePath}
                       />
                     </td>
                   </tr>

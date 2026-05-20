@@ -70,7 +70,7 @@ export default async function PendingApprovalPage() {
                       <span> · {formatDate(l.updatedAt)}</span>
                     </div>
                     <Link
-                      href={`/dashboard/listings/${l.id}/edit`}
+                      href={`/admin/listings/${l.id}/edit`}
                       className="text-xs uppercase tracking-[0.18em] text-mute hover:text-ink"
                       data-cursor="edit"
                     >

@@ -13,6 +13,7 @@ const NAV = [
 export default async function MyLayout({ children }: { children: React.ReactNode }) {
   const session = await auth();
   if (!session?.user) redirect('/login');
+  if (session.user.role !== 'USER') redirect('/403');
 
   return (
     <div className="min-h-screen bg-bone">

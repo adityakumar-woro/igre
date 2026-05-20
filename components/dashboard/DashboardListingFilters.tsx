@@ -1,6 +1,6 @@
 'use client';
 
-import { useRouter, useSearchParams } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useTransition, useState, useEffect } from 'react';
 
 interface AreaOption { id: string; slug: string; name: string }
@@ -24,7 +24,9 @@ const TYPES = [
 
 export function DashboardListingFilters({ areas }: { areas: AreaOption[] }) {
   const router = useRouter();
+  const pathname = usePathname();
   const params = useSearchParams();
+  const basePath = pathname.startsWith('/admin') ? '/admin/listings' : '/dashboard/listings';
   const [pending, start] = useTransition();
   const [q, setQ] = useState(params.get('q') ?? '');
 
@@ -34,8 +36,8 @@ export function DashboardListingFilters({ areas }: { areas: AreaOption[] }) {
       const next = new URLSearchParams(params.toString());
       if (q) next.set('q', q); else next.delete('q');
       next.delete('page');
-      const target = `/dashboard/listings?${next.toString()}`;
-      if (target !== `/dashboard/listings?${params.toString()}`) {
+      const target = `${basePath}?${next.toString()}`;
+      if (target !== `${basePath}?${params.toString()}`) {
         start(() => router.push(target));
       }
     }, 300);
@@ -47,7 +49,7 @@ export function DashboardListingFilters({ areas }: { areas: AreaOption[] }) {
     const next = new URLSearchParams(params.toString());
     if (value) next.set(key, value); else next.delete(key);
     next.delete('page');
-    start(() => router.push(`/dashboard/listings?${next.toString()}`));
+    start(() => router.push(`${basePath}?${next.toString()}`));
   };
 
   const selectClass =

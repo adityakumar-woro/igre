@@ -21,7 +21,7 @@ function homeJsonLd() {
     '@context': 'https://schema.org',
     '@type': 'RealEstateAgent',
     name: 'IGRE — Ideal Greenland Real Estate LLC',
-    image: 'https://igre.ae/og-image.jpg',
+    image: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://igre-staging.up.railway.app'}/og-image.jpg`,
     address: {
       '@type': 'PostalAddress',
       streetAddress: 'Building C3, Office M3',

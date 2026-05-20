@@ -19,6 +19,7 @@ export default async function ViewingsPage({ searchParams }: PageProps) {
   const session = await auth();
   const userId = session!.user.id;
   const isAdmin = session!.user.role === 'ADMIN';
+  const basePath = isAdmin ? '/admin' : '/dashboard';
 
   const { filter = 'upcoming' } = await searchParams;
   const today = new Date(new Date().toDateString());
@@ -99,7 +100,7 @@ export default async function ViewingsPage({ searchParams }: PageProps) {
                         </div>
                         <p className="mt-3 text-xs text-mute">
                           Property:{' '}
-                          <Link href={`/dashboard/listings/${v.listing.id}/edit`} className="text-ink hover:text-gold">
+                          <Link href={`${basePath}/listings/${v.listing.id}/edit`} className="text-ink hover:text-gold">
                             {v.listing.reference} — {v.listing.title}
                           </Link>
                         </p>

@@ -9,6 +9,6 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ['/admin', '/dashboard', '/my', '/api', '/change-password'],
       },
     ],
-    sitemap: 'https://igre.ae/sitemap.xml',
+    sitemap: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://igre-staging.up.railway.app'}/sitemap.xml`,
   };
 }

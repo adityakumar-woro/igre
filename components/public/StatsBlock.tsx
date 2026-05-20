@@ -30,7 +30,7 @@ const STATS: Stat[] = [
     bg: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&q=80',
   },
   {
-    value: 15,
+    value: 3,
     suffix: '+',
     label: 'Years in Abu Dhabi',
     sub: 'Local since day one. Brokers, not visitors.',

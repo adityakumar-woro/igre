@@ -9,6 +9,7 @@ interface Props {
   status: string;
   isAdmin: boolean;
   isOwner: boolean;
+  basePath?: '/admin' | '/dashboard';
 }
 
 /**
@@ -18,7 +19,7 @@ interface Props {
  * - Publish (PENDING → PUBLISHED, ADMIN only)
  * - Unpublish (PUBLISHED → ARCHIVED, ADMIN only)
  */
-export function ListingRowActions({ listingId, status, isAdmin, isOwner }: Props) {
+export function ListingRowActions({ listingId, status, isAdmin, isOwner, basePath = isAdmin ? '/admin' : '/dashboard' }: Props) {
   const router = useRouter();
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState<string | null>(null);
@@ -45,7 +46,7 @@ export function ListingRowActions({ listingId, status, isAdmin, isOwner }: Props
       {err && <span className="text-danger">{err}</span>}
 
       <Link
-        href={`/dashboard/listings/${listingId}/edit`}
+        href={`${basePath}/listings/${listingId}/edit`}
         className="text-mute hover:text-ink"
         data-cursor="edit"
       >

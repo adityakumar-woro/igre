@@ -26,7 +26,7 @@ export function DashboardSidebar({ user, signOutAction }: Props) {
     exact ? pathname === href : pathname === href || pathname.startsWith(href + '/');
 
   return (
-    <aside className="hidden border-r border-line bg-bone md:flex md:w-64 md:flex-col md:fixed md:inset-y-0">
+    <aside className="hidden overflow-hidden border-r border-line bg-bone md:fixed md:inset-y-0 md:flex md:w-64 md:flex-col">
       {/* Decorative gradient wash at top of the sidebar */}
       <div
         aria-hidden
@@ -41,11 +41,11 @@ export function DashboardSidebar({ user, signOutAction }: Props) {
       <div className="relative px-8 py-7">
         <Logo />
         <p className="mt-2 inline-block rounded-full border border-gold/30 bg-gold/10 px-3 py-0.5 font-mono text-[10px] uppercase tracking-[0.22em] text-gold">
-          {user.role === 'ADMIN' ? 'Admin' : 'Agent'}
+          Agent
         </p>
       </div>
 
-      <nav className="relative flex-1 px-4 pt-2">
+      <nav className="relative min-h-0 flex-1 overflow-y-auto px-4 pb-6 pt-2">
         <ul className="space-y-1">
           {NAV.map((n) => {
             const active = isActive(n.href, n.exact);
@@ -75,7 +75,7 @@ export function DashboardSidebar({ user, signOutAction }: Props) {
         </ul>
       </nav>
 
-      <div className="relative border-t border-line bg-gradient-to-br from-bone to-ivory px-8 py-6">
+      <div className="relative shrink-0 border-t border-line bg-gradient-to-br from-bone to-ivory px-8 py-6">
         <p className="truncate text-sm font-medium">{user.name}</p>
         <p className="truncate text-xs text-mute">{user.email}</p>
         <form action={signOutAction} className="mt-4">

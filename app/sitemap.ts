@@ -2,7 +2,7 @@ import type { MetadataRoute } from 'next';
 import { db } from '@/lib/db';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const base = 'https://igre.ae';
+  const base = process.env.NEXT_PUBLIC_SITE_URL || 'https://igre-staging.up.railway.app';
 
   const staticRoutes: MetadataRoute.Sitemap = [
     '', '/listings', '/areas', '/services', '/about', '/team', '/contact', '/collaborate',

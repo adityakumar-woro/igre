@@ -18,6 +18,7 @@ const TYPE_LABEL: Record<string, string> = {
 export default async function LeadDetailPage({ params }: PageProps) {
   const session = await auth();
   const isAdmin = session!.user.role === 'ADMIN';
+  const basePath = isAdmin ? '/admin' : '/dashboard';
   const { id } = await params;
 
   const lead = await db.lead.findUnique({
@@ -46,7 +47,7 @@ export default async function LeadDetailPage({ params }: PageProps) {
   return (
     <div className="space-y-12">
       <div>
-        <Link href="/dashboard/leads" className="text-xs uppercase tracking-[0.18em] text-mute hover:text-ink">
+        <Link href={`${basePath}/leads`} className="text-xs uppercase tracking-[0.18em] text-mute hover:text-ink">
           ← Pipeline
         </Link>
         <h1 className="mt-4 font-display text-4xl tracking-editorial md:text-5xl">{lead.name}</h1>
@@ -123,7 +124,7 @@ export default async function LeadDetailPage({ params }: PageProps) {
               <p className="text-[11px] uppercase tracking-[0.28em] text-mute">Property</p>
               <p className="mt-2 font-mono text-xs text-mute">{lead.listing.reference}</p>
               <Link
-                href={`/dashboard/listings/${lead.listing.id}/edit`}
+                href={`${basePath}/listings/${lead.listing.id}/edit`}
                 className="mt-2 block hover:text-gold"
                 data-cursor="open"
               >

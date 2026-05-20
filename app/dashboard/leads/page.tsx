@@ -8,6 +8,7 @@ export default async function LeadsPage() {
   const session = await auth();
   const userId = session!.user.id;
   const isAdmin = session!.user.role === 'ADMIN';
+  const basePath = isAdmin ? '/admin' : '/dashboard';
 
   const leads = await db.lead.findMany({
     where: isAdmin ? {} : { agentId: userId },
@@ -50,7 +51,7 @@ export default async function LeadsPage() {
           <p className="mt-3 text-mute">Convert an enquiry to start your pipeline.</p>
         </div>
       ) : (
-        <LeadKanban leads={data} isAdmin={isAdmin} currentUserId={userId} />
+        <LeadKanban leads={data} isAdmin={isAdmin} currentUserId={userId} basePath={basePath} />
       )}
     </div>
   );

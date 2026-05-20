@@ -19,7 +19,7 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://igre.ae'),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://igre-staging.up.railway.app'),
   title: {
     default: 'IGRE — Property in Abu Dhabi, told properly.',
     template: '%s | IGRE',

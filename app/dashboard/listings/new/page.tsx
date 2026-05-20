@@ -37,6 +37,7 @@ export default async function NewListingPage() {
         agents={agents}
         isAdmin={isAdmin}
         ownerId={session!.user.id}
+        basePath={isAdmin ? '/admin' : '/dashboard'}
       />
     </div>
   );

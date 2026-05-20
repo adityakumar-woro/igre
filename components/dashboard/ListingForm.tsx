@@ -26,6 +26,7 @@ interface Props {
   agents?: AgentOption[]; // Only passed for ADMIN
   isAdmin: boolean;
   ownerId: string;
+  basePath?: '/admin' | '/dashboard';
 }
 
 // Form-level schema: omit coverImageUrl (we set it from images[0]) and use string features field
@@ -56,7 +57,7 @@ const COMMON_FEATURES = [
   'Italian kitchen', 'Off-plan',
 ];
 
-export function ListingForm({ mode, listingId, initialValues, areas, agents, isAdmin, ownerId }: Props) {
+export function ListingForm({ mode, listingId, initialValues, areas, agents, isAdmin, ownerId, basePath = isAdmin ? '/admin' : '/dashboard' }: Props) {
   const router = useRouter();
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -121,7 +122,7 @@ export function ListingForm({ mode, listingId, initialValues, areas, agents, isA
       }
       const body = await res.json();
       router.refresh();
-      router.push(`/dashboard/listings/${body.id ?? listingId}/edit?saved=1`);
+      router.push(`${basePath}/listings/${body.id ?? listingId}/edit?saved=1`);
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Something went wrong');
     } finally {
@@ -304,7 +305,7 @@ export function ListingForm({ mode, listingId, initialValues, areas, agents, isA
       )}
 
       <div className="sticky bottom-0 -mx-6 flex items-center justify-between border-t border-line bg-bone px-6 py-4 md:-mx-12 md:px-12">
-        <Link href="/dashboard/listings" className="text-xs uppercase tracking-[0.18em] text-mute hover:text-ink">
+        <Link href={`${basePath}/listings`} className="text-xs uppercase tracking-[0.18em] text-mute hover:text-ink">
           ← Back to listings
         </Link>
         <div className="flex items-center gap-4">

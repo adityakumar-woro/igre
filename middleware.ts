@@ -61,14 +61,20 @@ export async function middleware(req: NextRequest) {
     return NextResponse.redirect(url);
   }
 
-  // /dashboard/* — MANAGER or ADMIN
-  if (pathname.startsWith('/dashboard') && token.role !== 'MANAGER' && token.role !== 'ADMIN') {
+  // /dashboard/* — MANAGER only. Admin has its own /admin workspace.
+  if (pathname.startsWith('/dashboard') && token.role !== 'MANAGER') {
     const url = req.nextUrl.clone();
     url.pathname = '/403';
     return NextResponse.redirect(url);
   }
 
-  // /my/* — any authenticated user (already covered above)
+  // /my/* — public client account only.
+  if (pathname.startsWith('/my') && token.role !== 'USER') {
+    const url = req.nextUrl.clone();
+    url.pathname = '/403';
+    return NextResponse.redirect(url);
+  }
+
   return NextResponse.next();
 }
 

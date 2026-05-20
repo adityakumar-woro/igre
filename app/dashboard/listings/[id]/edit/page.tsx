@@ -79,6 +79,7 @@ export default async function EditListingPage({ params, searchParams }: PageProp
         agents={agents}
         isAdmin={isAdmin}
         ownerId={session!.user.id}
+        basePath={isAdmin ? '/admin' : '/dashboard'}
         initialValues={{
           title: listing.title,
           description: listing.description,
