@@ -12,6 +12,8 @@ export interface TeamMember {
   avatarUrl: string | null;
 }
 
+const HIDE_EMAILS = new Set(['admin@igre.ae']);
+
 function initials(name: string) {
   return name.split(' ').map((p) => p[0]).filter(Boolean).slice(0, 2).join('').toUpperCase();
 }
@@ -28,17 +30,20 @@ export function TeamGrid({ team }: { team: TeamMember[] }) {
 
   return (
     <section className="bg-bone">
-      <div className="container-editorial py-24 md:py-32">
-        <div className="mb-12 flex items-baseline justify-between">
-          <h2 className="font-display text-4xl leading-[1.05] tracking-editorial md:text-6xl">
-            The team.
-          </h2>
-          <p className="hidden text-[11px] uppercase tracking-[0.28em] text-mute md:block">
-            Direct phone · Direct email
+      <div className="container-editorial py-14 md:py-28">
+        <div className="mb-8 grid grid-cols-1 gap-5 border-b border-line pb-8 md:mb-12 md:grid-cols-12 md:items-end md:pb-10">
+          <div className="md:col-span-7">
+            <p className="text-[11px] uppercase tracking-[0.28em] text-mute">People</p>
+            <h2 className="mt-4 font-display text-4xl leading-[1.05] tracking-editorial sm:text-5xl md:text-7xl">
+              The team.
+            </h2>
+          </div>
+          <p className="max-w-[42ch] text-sm leading-[1.7] text-mute md:col-span-5">
+            Direct contacts for Abu Dhabi sales, rentals, leasing, viewings, and client follow-up.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
           {team.map((m, i) => (
             <motion.article
               key={m.id}
@@ -46,10 +51,9 @@ export function TeamGrid({ team }: { team: TeamMember[] }) {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-10% 0px' }}
               transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: i * 0.08 }}
-              whileHover={{ y: -6 }}
-              className="group"
+              className="group overflow-hidden rounded-sm border border-line bg-bone transition-colors hover:bg-ivory"
             >
-              <div className="relative aspect-[4/5] w-full overflow-hidden rounded-sm bg-gulf shadow-[0_24px_50px_-30px_rgba(14,17,22,0.4)]">
+              <div className="relative aspect-[4/5] w-full overflow-hidden bg-gulf">
                 {m.avatarUrl ? (
                   <>
                     {/* Original colour photograph (no greyscale filter) */}
@@ -57,12 +61,11 @@ export function TeamGrid({ team }: { team: TeamMember[] }) {
                     <img
                       src={m.avatarUrl}
                       alt={m.name}
-                      className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1200ms] ease-editorial group-hover:scale-[1.06]"
+                      className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1200ms] ease-editorial group-hover:scale-[1.05]"
                       loading="lazy"
                       onError={(e) => { e.currentTarget.src = fallbackImage; }}
                     />
-                    {/* Subtle gradient at bottom for legibility of any badge if added later */}
-                    <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-ink/30 to-transparent" />
+                    <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-ink/45 to-transparent" />
                   </>
                 ) : (
                   <div
@@ -76,11 +79,11 @@ export function TeamGrid({ team }: { team: TeamMember[] }) {
                 )}
               </div>
 
-              <div className="mt-5">
-                <h3 className="font-display text-xl leading-[1.15] tracking-editorial">
+              <div className="min-w-0 p-4 sm:p-5">
+                <h3 className="break-words font-display text-2xl leading-[1.05] tracking-editorial">
                   {m.name}
                 </h3>
-                <div className="mt-3 space-y-1 text-sm">
+                <div className="mt-4 space-y-1 text-sm">
                   {m.phone && (
                     <a
                       href={`tel:${m.phone.replace(/\s/g, '')}`}
@@ -90,13 +93,15 @@ export function TeamGrid({ team }: { team: TeamMember[] }) {
                       {m.phone}
                     </a>
                   )}
-                  <a
-                    href={`mailto:${m.email}`}
-                    className="block break-all text-mute hover:text-gold"
-                    data-cursor="email"
-                  >
-                    {m.email}
-                  </a>
+                  {m.email && !HIDE_EMAILS.has(m.email) && (
+                    <a
+                      href={`mailto:${m.email}`}
+                      className="block break-all text-mute hover:text-gold"
+                      data-cursor="email"
+                    >
+                      {m.email}
+                    </a>
+                  )}
                 </div>
               </div>
             </motion.article>

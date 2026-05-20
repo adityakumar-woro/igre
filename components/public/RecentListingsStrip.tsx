@@ -49,15 +49,12 @@ export function RecentListingsStrip({ listings }: { listings: StripListing[] }) 
       />
 
       <div className="relative z-10">
-        <div className="container-editorial flex items-end justify-between gap-8 pb-12 pt-32 md:pt-44">
+        <div className="container-editorial flex items-end justify-between gap-8 pb-12 pt-16 md:pt-20">
           <div>
             <p className="text-[11px] uppercase tracking-[0.28em] text-mute">Most recent</p>
             <h2 className="mt-4 max-w-[18ch] font-display text-4xl leading-[1.05] tracking-editorial md:text-7xl">
               Just on the books.
             </h2>
-            <p className="mt-4 max-w-[40ch] text-sm text-mute">
-              Newest first. Drag the strip, swipe on touch, or use the arrows.
-            </p>
           </div>
           <div className="hidden flex-col items-end gap-4 md:flex">
             <span className="font-mono text-[11px] uppercase tracking-[0.22em] text-mute">

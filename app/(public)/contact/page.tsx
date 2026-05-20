@@ -14,7 +14,7 @@ export default function ContactPage() {
           <div className="md:col-span-7">
             <p className="text-[11px] uppercase tracking-[0.28em] text-mute">Contact</p>
             <h1 className="mt-4 max-w-[14ch] font-display text-5xl leading-[1.05] tracking-editorial md:text-8xl">
-              A direct line to IGRE.
+              Tell us what you need next.
             </h1>
           </div>
           <div className="md:col-span-4 md:col-start-9">

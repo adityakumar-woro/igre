@@ -44,8 +44,16 @@ const AREA_IMAGE = {
   corniche: 'https://cdn.pixabay.com/photo/2020/06/02/06/30/abu-dhabi-5249641_1280.jpg',
   yasFerrari: 'https://upload.wikimedia.org/wikipedia/commons/2/28/Yas_Marina_Circuit_%2B_Ferrari_World_-Abu_Dhabi.jpg',
   alBateen: 'https://upload.wikimedia.org/wikipedia/commons/f/f0/Al_Bateen_Beach_2.jpg',
-  mainlandVillas: 'https://images.pexels.com/photos/8481173/pexels-photo-8481173.jpeg?auto=compress&cs=tinysrgb&w=1800',
+  ferrariAlt: 'https://images.pexels.com/photos/534151/pexels-photo-534151.jpeg?auto=compress&cs=tinysrgb&w=1800',
+  mbz: 'https://images.pexels.com/photos/8481173/pexels-photo-8481173.jpeg?auto=compress&cs=tinysrgb&w=1800',
+  khalifaCity: 'https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?auto=compress&cs=tinysrgb&w=1800',
   alRaha: 'https://upload.wikimedia.org/wikipedia/commons/e/e9/Al_Dar_Hq_architecutal_view.jpg',
+  zayedCity: 'https://images.pexels.com/photos/323780/pexels-photo-323780.jpeg?auto=compress&cs=tinysrgb&w=1800',
+  shakhbout: 'https://images.pexels.com/photos/1396122/pexels-photo-1396122.jpeg?auto=compress&cs=tinysrgb&w=1800',
+  alReef: 'https://images.pexels.com/photos/259588/pexels-photo-259588.jpeg?auto=compress&cs=tinysrgb&w=1800',
+  baniyas: 'https://images.pexels.com/photos/186077/pexels-photo-186077.jpeg?auto=compress&cs=tinysrgb&w=1800',
+  alRiyadh: 'https://images.pexels.com/photos/210617/pexels-photo-210617.jpeg?auto=compress&cs=tinysrgb&w=1800',
+  alShamkha: 'https://images.pexels.com/photos/280222/pexels-photo-280222.jpeg?auto=compress&cs=tinysrgb&w=1800',
   zayedBridge: 'https://cdn.pixabay.com/photo/2019/05/18/23/57/city-4212886_1280.jpg',
   abuDhabiCity: 'https://cdn.pixabay.com/photo/2016/02/03/20/19/abu-dhabi-1177898_1280.jpg',
 };
@@ -96,12 +104,64 @@ async function main() {
     data: {
       email: 'manager@igre.ae',
       phone: '+971502416589',
-      name: 'IGRE Agent',
+      name: 'Mohammed Asaduzzaman',
       passwordHash: managerHash,
       role: 'MANAGER',
-      bio: 'Senior Property Consultant. Sales, leasing, and broker collaborations.',
+      bio: 'Property consultant for sales, rentals, and broker collaboration enquiries across Abu Dhabi.',
       forcePasswordChange: false,
       avatarUrl: '/team/Asaduzzaman.png',
+    },
+  });
+
+  const asadPublic = await prisma.user.create({
+    data: {
+      email: 'igre.asad@gmail.com',
+      phone: '+971502416589',
+      name: 'Mohammed Asaduzzaman',
+      passwordHash: managerHash,
+      role: 'MANAGER',
+      bio: 'Property consultant for sales, rentals, and broker collaboration enquiries across Abu Dhabi.',
+      forcePasswordChange: false,
+      avatarUrl: '/team/Asaduzzaman.png',
+    },
+  });
+
+  const faisalPublic = await prisma.user.create({
+    data: {
+      email: 'faisalvpz2777@gmail.com',
+      phone: '+971525697405',
+      name: 'Muhammad Faisal',
+      passwordHash: managerHash,
+      role: 'MANAGER',
+      bio: 'Property consultant for Abu Dhabi sale and rental enquiries, with direct follow-up for clients looking across island, city, and mainland communities.',
+      forcePasswordChange: false,
+      avatarUrl: '/team/muhammad-faisal.jpeg',
+    },
+  });
+
+  const kaiserPublic = await prisma.user.create({
+    data: {
+      email: 'igre.kaiser@gmail.com',
+      phone: '+971581005220',
+      name: 'MD Kaiser Mahmud',
+      passwordHash: managerHash,
+      role: 'MANAGER',
+      bio: 'Managing Director at Ideal Greenland Real Estate LLC. Abu Dhabi sales, rentals, and client advisory.',
+      forcePasswordChange: false,
+      avatarUrl: '/team/md-kaiser-mahmud.jpeg',
+    },
+  });
+
+  const ashikPublic = await prisma.user.create({
+    data: {
+      email: 'ashikuzzamanarman@gmail.com',
+      phone: '+971525697420',
+      name: 'Ashikuzzaman Arman',
+      passwordHash: managerHash,
+      role: 'MANAGER',
+      bio: 'Property consultant supporting Abu Dhabi sales, rentals, viewings, and client follow-up across city and mainland communities.',
+      forcePasswordChange: false,
+      avatarUrl: '/team/ashikuzzaman-arman.jpeg',
     },
   });
 
@@ -117,14 +177,14 @@ async function main() {
     },
   });
 
-  console.log('  - 3 users created (admin / manager / user)');
+  console.log('  - 7 users created (admin / managers / user)');
 
   // Aliases used by listing assignments below — both go to the single manager
   // for now. Keeps the rest of the seed code unchanged.
   const kaiser = admin;
-  const asad   = manager;
-  const faisal = manager;
-  const arman  = manager;
+  const asad   = asadPublic;
+  const faisal = faisalPublic;
+  const arman  = ashikPublic;
 
   // -------------------------------------------------------------------------
   // Areas
@@ -239,8 +299,8 @@ async function main() {
       tagline: 'Live where the city goes out.',
       description:
         'Yas Bay is the entertainment edge of Yas Island — the arena, the boardwalk, the restaurants, the F1 paddock. A small but growing residential offering puts you walking distance from the loudest evenings in Abu Dhabi.',
-      heroImageUrl: AREA_IMAGE.yasFerrari,
-      images: JSON.stringify([AREA_IMAGE.yasFerrari, INTERIOR_2, INTERIOR_3]),
+      heroImageUrl: AREA_IMAGE.ferrariAlt,
+      images: JSON.stringify([AREA_IMAGE.ferrariAlt, INTERIOR_2, INTERIOR_3]),
       startingPrice2BhkSale: 1500000,
       startingPrice3BhkSale: 2400000,
       freehold: true,
@@ -279,7 +339,7 @@ async function main() {
     {
       slug: 'mohammed-bin-zayed-city',
       name: 'MBZ - Mohammed Bin Zayed City',
-      heroImageUrl: AREA_IMAGE.mainlandVillas,
+      heroImageUrl: AREA_IMAGE.mbz,
       tagline: 'Mainland family villas with room, parking, and practical rents.',
       description: 'Mohammed Bin Zayed City is one of the strongest mainland rental areas in Abu Dhabi. It suits families who need larger villas, staff rooms, parking, schools nearby, and easier access toward Mussafah, Abu Dhabi city, and Dubai road links.',
       startingPrice2BhkRent: 52000,
@@ -291,7 +351,7 @@ async function main() {
     {
       slug: 'khalifa-city-a',
       name: 'Khalifa City A',
-      heroImageUrl: AREA_IMAGE.mainlandVillas,
+      heroImageUrl: AREA_IMAGE.khalifaCity,
       tagline: 'Quiet mainland living close to schools, airport, and Yas.',
       description: 'Khalifa City A is a favourite for families who want villa space without being far from Abu Dhabi city. Expect compounds, private villas, good parking, schools, nurseries, and quick access to Yas Island and the airport.',
       startingPrice2BhkRent: 58000,
@@ -318,7 +378,7 @@ async function main() {
     {
       slug: 'zayed-city',
       name: 'Zayed City',
-      heroImageUrl: AREA_IMAGE.mainlandVillas,
+      heroImageUrl: AREA_IMAGE.zayedCity,
       tagline: 'A growing mainland address for larger homes and newer communities.',
       description: 'Zayed City is developing into a key mainland residential address. It attracts families looking for larger homes, newer infrastructure, and better value compared with island communities.',
       startingPrice2BhkRent: 55000,
@@ -330,7 +390,7 @@ async function main() {
     {
       slug: 'shakhbout-city',
       name: 'Shakhbout City',
-      heroImageUrl: AREA_IMAGE.mainlandVillas,
+      heroImageUrl: AREA_IMAGE.shakhbout,
       tagline: 'Large villas, calm streets, and strong family rental demand.',
       description: 'Shakhbout City is known for spacious villas and a quieter family environment. It works well for tenants who prioritise bedrooms, outdoor space, parking, and value over a central city address.',
       startingPrice2BhkRent: 50000,
@@ -342,7 +402,7 @@ async function main() {
     {
       slug: 'al-reef',
       name: 'Al Reef',
-      heroImageUrl: AREA_IMAGE.mainlandVillas,
+      heroImageUrl: AREA_IMAGE.alReef,
       tagline: 'Townhouses and apartments with strong value near the airport.',
       description: 'Al Reef is one of Abu Dhabi’s most practical communities for value-led buyers and tenants. Apartments and villas are popular with residents who need community facilities, airport access, and more space for the budget.',
       startingPrice2BhkSale: 780000,
@@ -358,7 +418,7 @@ async function main() {
     {
       slug: 'baniyas',
       name: 'Baniyas',
-      heroImageUrl: AREA_IMAGE.mainlandVillas,
+      heroImageUrl: AREA_IMAGE.baniyas,
       tagline: 'Mainland value, family villas, and everyday convenience.',
       description: 'Baniyas is a practical mainland choice for families seeking villa space, local services, and better rental value. It is less glossy than the islands, but very liveable for long-term residents.',
       startingPrice2BhkRent: 48000,
@@ -370,7 +430,7 @@ async function main() {
     {
       slug: 'al-riyadh-city',
       name: 'Al Riyadh City',
-      heroImageUrl: AREA_IMAGE.mainlandVillas,
+      heroImageUrl: AREA_IMAGE.alRiyadh,
       tagline: 'Newer mainland homes with space for growing families.',
       description: 'Al Riyadh City is increasingly requested by tenants looking for larger layouts and newer homes. It is a sensible option for families who want room to grow and do not need to be in the city centre every day.',
       startingPrice2BhkRent: 50000,
@@ -382,7 +442,7 @@ async function main() {
     {
       slug: 'al-shamkha',
       name: 'Al Shamkha',
-      heroImageUrl: AREA_IMAGE.mainlandVillas,
+      heroImageUrl: AREA_IMAGE.alShamkha,
       tagline: 'Mainland villas, strong value, and long-term family rentals.',
       description: 'Al Shamkha is a mainland residential area with strong demand for larger villas and more affordable family rentals. It suits tenants who value space, parking, and easy highway access.',
       startingPrice2BhkRent: 45000,

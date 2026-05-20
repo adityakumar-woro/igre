@@ -14,7 +14,8 @@ interface Stat {
 
 const STATS: Stat[] = [
   {
-    value: 6,
+    value: 20,
+    suffix: '+',
     label: 'Areas covered',
     sub: 'Islands, mainland villa communities, and established city neighbourhoods.',
     tone: 'gold',
@@ -34,7 +35,7 @@ const STATS: Stat[] = [
     label: 'Years in Abu Dhabi',
     sub: 'Local since day one. Brokers, not visitors.',
     tone: 'sunset',
-    bg: 'https://images.unsplash.com/photo-1583425423320-eb8617c01da2?w=1200&q=80',
+    bg: 'https://cdn.pixabay.com/photo/2020/06/02/06/30/abu-dhabi-5249641_1280.jpg',
   },
   {
     value: 24,
@@ -68,17 +69,20 @@ export function StatsBlock() {
         style={{ background: 'radial-gradient(circle at center, var(--gulf) 0%, transparent 60%)', filter: 'blur(100px)' }}
       />
 
-      <div className="container-editorial relative z-10 py-24 md:py-36">
-        <div className="mb-16 flex flex-col items-baseline justify-between gap-6 md:flex-row md:gap-12">
-          <h2 className="max-w-[20ch] font-display text-4xl leading-[1.05] tracking-editorial md:text-6xl">
-            A small brokerage. Big presence on the islands.
-          </h2>
-          <p className="max-w-[36ch] text-sm text-mute md:text-base">
-            We do one thing — Abu Dhabi residential. We do it carefully, locally, and have for a while.
+      <div className="container-editorial relative z-10 pb-16 pt-24 md:pb-20 md:pt-32">
+        <div className="mb-12 grid grid-cols-1 gap-8 border-b border-line pb-10 md:grid-cols-12 md:items-end">
+          <div className="md:col-span-7">
+            <p className="text-[11px] uppercase tracking-[0.28em] text-mute">Why clients call</p>
+            <h2 className="mt-4 max-w-[18ch] font-display text-4xl leading-[1.05] tracking-editorial md:text-6xl">
+              Abu Dhabi property, handled with local context.
+            </h2>
+          </div>
+          <p className="max-w-[42ch] text-sm leading-[1.7] text-mute md:col-span-5">
+            Sales, rent, viewings, and landlord support across island addresses and mainland family communities.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4 lg:gap-8">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
           {STATS.map((s, i) => (
             <motion.article
               key={i}
@@ -87,7 +91,7 @@ export function StatsBlock() {
               viewport={{ once: true, margin: '-10% 0px' }}
               transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: i * 0.08 }}
               whileHover={{ y: -6 }}
-              className="group relative aspect-[4/5] overflow-hidden rounded-sm shadow-[0_24px_60px_-30px_rgba(14,17,22,0.4)]"
+              className="group relative min-h-[24rem] overflow-hidden rounded-sm shadow-[0_24px_60px_-30px_rgba(14,17,22,0.4)]"
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img

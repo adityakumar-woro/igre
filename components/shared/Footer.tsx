@@ -136,6 +136,8 @@ export async function Footer() {
               <li><Link href="/team" className="text-bone/80 hover:text-gold">Team</Link></li>
               <li><Link href="/contact" className="text-bone/80 hover:text-gold">Contact</Link></li>
               <li><Link href="/login" className="text-bone/80 hover:text-gold">Sign in</Link></li>
+              <li><Link href="/privacy" className="text-bone/80 hover:text-gold">Privacy</Link></li>
+              <li><Link href="/terms" className="text-bone/80 hover:text-gold">Terms</Link></li>
             </ul>
           </div>
         </div>

@@ -1,8 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 export interface AreaIndexItem {
   id: string;
@@ -32,127 +31,63 @@ const FOCUS_AREAS = [
 ];
 
 export function AreaIndex({ areas }: { areas: AreaIndexItem[] }) {
-  const [hover, setHover] = useState<number | null>(null);
-  const fallbackImage = '/areas/abu-dhabi-property.svg';
+  const featured = areas.slice(0, 6);
 
   return (
-    <section className="relative isolate overflow-hidden bg-bone">
-      {/* Animated colour blobs */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -left-1/3 top-0 h-[55vmax] w-[55vmax] rounded-full opacity-25 mix-blend-multiply"
-        style={{ background: 'radial-gradient(circle at center, var(--gulf) 0%, transparent 60%)', filter: 'blur(120px)' }}
-      />
-      <motion.div
-        aria-hidden
-        className="pointer-events-none absolute -right-1/4 bottom-0 h-[55vmax] w-[55vmax] rounded-full opacity-30 mix-blend-multiply"
-        style={{ background: 'radial-gradient(circle at center, var(--gold) 0%, transparent 60%)', filter: 'blur(120px)' }}
-        animate={{ x: ['0%', '-6%', '4%', '0%'], y: ['0%', '8%', '-4%', '0%'] }}
-        transition={{ duration: 30, repeat: Infinity, ease: 'easeInOut' }}
-      />
-
-      <div className="container-editorial relative z-10 py-32 md:py-44">
-        <div className="grid grid-cols-1 gap-12 md:grid-cols-12 md:gap-16">
-          <div className="md:col-span-3">
+    <section className="relative isolate overflow-hidden bg-ivory">
+      <div className="container-editorial relative z-10 py-20 md:py-28">
+        <div className="grid grid-cols-1 gap-10 md:grid-cols-12 md:items-start">
+          <div className="md:col-span-5">
             <p className="text-[11px] uppercase tracking-[0.28em] text-mute">Abu Dhabi coverage</p>
-            <p className="mt-6 max-w-[28ch] font-display text-2xl leading-[1.2] tracking-editorial md:text-3xl">
-              We know all areas in Abu Dhabi, with special focus where clients ask most.
+            <h2 className="mt-4 max-w-[14ch] font-display text-4xl leading-[1.05] tracking-editorial md:text-6xl">
+              The areas clients ask us about most.
+            </h2>
+            <p className="mt-6 max-w-[46ch] text-sm leading-[1.7] text-ink/70">
+              We work across Abu Dhabi, but these island, city, and mainland communities come up every day for sale and rental enquiries.
             </p>
-            <p className="mt-4 max-w-[34ch] text-sm text-mute">
-              From island apartments to mainland family villas, IGRE handles both sale and rent enquiries with area-specific guidance.
-            </p>
-            <div className="mt-8 flex flex-wrap gap-2">
-              {FOCUS_AREAS.map((area) => (
-                <span key={area} className="rounded-full border border-line bg-bone/70 px-3 py-1 text-[11px] text-ink/75">
+            <Link href="/areas" className="mt-8 inline-flex items-center gap-4 text-[11px] uppercase tracking-[0.24em] text-mute hover:text-ink">
+              Browse all areas
+              <span className="h-px w-12 bg-ink" />
+            </Link>
+          </div>
+
+          <div className="md:col-span-7">
+            <div className="grid grid-cols-2 gap-3 md:grid-cols-3">
+              {featured.map((area, i) => (
+                <motion.div
+                  key={area.id}
+                  initial={{ opacity: 0, y: 14 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: '-10% 0px' }}
+                  transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1], delay: i * 0.04 }}
+                >
+                  <Link href={`/areas/${area.slug}`} className="group block overflow-hidden rounded-sm border border-line bg-bone">
+                    <div className="relative aspect-[4/3] overflow-hidden bg-sand">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img src={area.heroImageUrl} alt="" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                    </div>
+                    <div className="p-4">
+                      <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-mute">
+                        {String(i + 1).padStart(2, '0')}
+                      </p>
+                      <p className="mt-2 truncate font-display text-xl leading-none tracking-editorial">
+                        {area.name}
+                      </p>
+                    </div>
+                  </Link>
+                </motion.div>
+              ))}
+            </div>
+
+            <div className="mt-5 flex flex-wrap gap-2">
+              {FOCUS_AREAS.slice(6).map((area) => (
+                <span key={area} className="rounded-full border border-line bg-bone px-3 py-1 text-[11px] text-ink/70">
                   {area}
                 </span>
               ))}
             </div>
           </div>
-
-          <div className="md:col-span-9">
-            <ol className="relative">
-              {areas.map((a, i) => (
-                <motion.li
-                  key={a.id}
-                  initial={{ opacity: 0, y: 12 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: '-10% 0px' }}
-                  transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: i * 0.05 }}
-                  onMouseEnter={() => setHover(i)}
-                  onMouseLeave={() => setHover(null)}
-                  className="border-t border-line last:border-b"
-                >
-                  <Link
-                    href={`/areas/${a.slug}`}
-                    data-cursor="see area"
-                    className="group grid grid-cols-12 items-center gap-4 py-7"
-                  >
-                    <span className="col-span-1 font-mono text-[11px] tracking-wider text-mute">
-                      {String(i + 1).padStart(2, '0')}
-                    </span>
-
-                    <span className="col-span-7 flex items-center gap-4">
-                      <motion.span
-                        className="font-display text-3xl tracking-editorial md:text-5xl"
-                        animate={{ x: hover === i ? 8 : 0 }}
-                        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                      >
-                        {a.name}
-                      </motion.span>
-                      {/* Inline thumbnail that fades in on hover (mobile + desktop) */}
-                      <AnimatePresence>
-                        {hover === i && (
-                          <motion.span
-                            initial={{ opacity: 0, scale: 0.85, x: -10 }}
-                            animate={{ opacity: 1, scale: 1, x: 0 }}
-                            exit={{ opacity: 0, scale: 0.95, x: -6 }}
-                            transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-                            className="hidden h-12 w-20 overflow-hidden rounded-sm md:inline-block"
-                          >
-                            {/* eslint-disable-next-line @next/next/no-img-element */}
-                            <img src={a.heroImageUrl} alt="" className="h-full w-full object-cover" data-placeholder="true" onError={(e) => { e.currentTarget.src = fallbackImage; }} />
-                          </motion.span>
-                        )}
-                      </AnimatePresence>
-                    </span>
-
-                    <span className="col-span-3 text-right text-xs uppercase tracking-[0.18em] text-mute md:text-sm">
-                      Sales & rent
-                    </span>
-
-                    <span className="col-span-1 text-right text-mute transition-transform duration-500 group-hover:translate-x-1">
-                      ↗
-                    </span>
-                  </Link>
-                </motion.li>
-              ))}
-            </ol>
-
-            {/* Floating big thumbnail (desktop only) */}
-            <div className="pointer-events-none fixed right-12 top-1/2 z-30 hidden -translate-y-1/2 lg:block">
-              <AnimatePresence mode="wait">
-                {hover !== null && (
-                  <motion.div
-                    key={areas[hover].id}
-                    initial={{ opacity: 0, x: 30, scale: 0.94 }}
-                    animate={{ opacity: 1, x: 0, scale: 1 }}
-                    exit={{ opacity: 0, x: -30, scale: 0.94 }}
-                    transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                    className="h-80 w-60 overflow-hidden rounded-sm bg-sand shadow-[0_30px_80px_-30px_rgba(14,17,22,0.45)]"
-                  >
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={areas[hover].heroImageUrl} alt="" className="h-full w-full object-cover" data-placeholder="true" onError={(e) => { e.currentTarget.src = fallbackImage; }} />
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-          </div>
         </div>
-
-        <p className="mt-12 max-w-[68ch] text-xs italic text-mute">
-          We cover apartments, villas, townhouses, and staff accommodation across Abu Dhabi. Availability changes quickly, so speak with us for live sale and rental options.
-        </p>
       </div>
     </section>
   );

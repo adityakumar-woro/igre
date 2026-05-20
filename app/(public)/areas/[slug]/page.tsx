@@ -37,21 +37,32 @@ export default async function AreaPage({ params }: PageProps) {
   ].filter((r) => r.sale !== null || r.rent !== null);
 
   return (
-    <div className="pt-32 md:pt-40">
-      <div className="container-editorial">
-        <Link href="/areas" className="text-xs uppercase tracking-[0.18em] text-mute hover:text-ink">← All areas</Link>
-        <p className="mt-12 text-[11px] uppercase tracking-[0.28em] text-mute">{area.freehold ? 'Freehold' : 'Leasehold'} · {area.distanceToAirportKm ? `${area.distanceToAirportKm}km from AUH` : 'Abu Dhabi'}</p>
-        <h1 className="mt-4 max-w-[20ch] font-display text-5xl leading-[1.05] tracking-editorial md:text-8xl">
-          {area.name}
-        </h1>
-        <p className="mt-8 max-w-[55ch] font-display text-2xl leading-[1.15] text-ink/80 md:text-3xl">
-          {area.tagline}
-        </p>
-      </div>
-
-      <div className="container-editorial mt-20">
-        <RevealImage src={area.heroImageUrl} alt={area.name} className="aspect-[16/9] w-full" priority />
-      </div>
+    <div>
+      <section className="relative isolate min-h-[82svh] overflow-hidden bg-ink pt-28 text-bone md:pt-32">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={area.heroImageUrl}
+          alt=""
+          className="absolute inset-0 h-full w-full object-cover opacity-65"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/55 to-ink/10" />
+        <div className="container-editorial relative z-10 flex min-h-[70svh] flex-col justify-end pb-12 md:pb-16">
+          <Link href="/areas" className="mb-auto mt-4 text-xs uppercase tracking-[0.18em] text-bone/70 hover:text-gold">← All areas</Link>
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-12 md:items-end">
+            <div className="md:col-span-8">
+              <p className="text-[11px] uppercase tracking-[0.28em] text-bone/65">
+                {area.freehold ? 'Freehold' : 'Leasehold'} · {area.distanceToAirportKm ? `${area.distanceToAirportKm}km from AUH` : 'Abu Dhabi'}
+              </p>
+              <h1 className="mt-4 max-w-[12ch] font-display text-6xl leading-[0.92] tracking-editorial md:text-8xl">
+                {area.name}
+              </h1>
+            </div>
+            <p className="font-display text-2xl leading-[1.15] tracking-editorial text-bone/85 md:col-span-4 md:text-3xl">
+              {area.tagline}
+            </p>
+          </div>
+        </div>
+      </section>
 
       <div className="container-editorial mt-24 grid grid-cols-1 gap-16 md:grid-cols-12">
         <div className="md:col-span-5">
